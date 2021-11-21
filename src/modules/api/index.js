@@ -39,7 +39,7 @@ export default {
   // eslint-disable-next-line no-unused-vars
   setupInstance(store, router) {
     this.apiInstance = axios.create({
-      baseURL: '/api/v1/',
+      baseURL: '/api/v1/admin/',
       headers: {
         common: {
           'Access': 'application/json',
