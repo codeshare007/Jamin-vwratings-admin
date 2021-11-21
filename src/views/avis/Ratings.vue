@@ -2,7 +2,6 @@
   <div class="admin-ratings">
     <b-pagination v-model="currentPage" @change="handlePageChange" :total-rows="total" />
     <b-table
-      table-variant="dark"
       :items="ratings"
       :fields="ratingFields"
     >
@@ -48,7 +47,7 @@ export default {
 
   methods: {
     fetchRatings(page) {
-      this.$api.adminRatings.fetch(page).then(response => {
+      this.$api.avisRatings.fetch(page).then(response => {
         this.ratings = response.data.data;
         this.total = response.data.total;
       })
@@ -62,7 +61,6 @@ export default {
 </script>
 <style lang="scss">
   .admin-ratings {
-    background: #24252d;
     padding: 25px;
     border-radius: 5px;
     margin-bottom: 100px;

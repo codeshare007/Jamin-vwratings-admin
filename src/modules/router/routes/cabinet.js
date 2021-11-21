@@ -18,22 +18,28 @@ export default [
     meta: {title: 'Avis'}
   },
   {
-    name: 'cabinet.comments',
-    path: 'avis/comments',
-    component: () => import('@/views/avis/Comments'),
-    meta: {title: 'Avis Comments'}
-  },
-  {
-    name: 'cabinet.ratings',
-    path: 'avis/ratings',
-    component: () => import('@/views/avis/Ratings'),
-    meta: {title: 'Avis Ratings'}
-  },
-  {
     name: 'cabinet.messages',
     path: 'messages',
     component: () => import('@/views/messages/List'),
     meta: {title: 'Messages'}
+  },
+  {
+    name: 'cabinet.ads.campaigns',
+    path: 'campaigns',
+    component: () => import('@/views/ads/Index'),
+    meta: {title: 'Ads Campagins'}
+  },
+  {
+    name: 'cabinet.avis.comments',
+    path: 'avis-comments',
+    component: () => import('@/views/avis/Comments'),
+    meta: {title: 'Avis Comments'}
+  },
+  {
+    name: 'cabinet.avis.ratings',
+    path: 'avis-ratings',
+    component: () => import('@/views/avis/Ratings'),
+    meta: {title: 'Avis Ratings'}
   },
   {
     name: 'cabinet.parties',
@@ -53,10 +59,4 @@ export default [
     component: () => import('@/views/parties/Ratings'),
     meta: {title: 'Parties Ratings'}
   },
-  {
-    name: 'cabinet.ads_campaigns',
-    path: 'campaigns',
-    component: () => import('@/views/ads/Index'),
-    meta: {title: 'Ads Campagins'}
-  }
 ]

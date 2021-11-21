@@ -3,10 +3,13 @@ import Cookie from 'js-cookie';
 
 import apiAuth from './methods/auth';
 import apiProfile from './methods/profile';
-import apiDashboard from './methods/dashboard'
-import apiAvis from './methods/avis'
-import apiAvisComments from './methods/aviscomments'
-import apiMessages from './methods/messages'
+
+import apiDashboard from './methods/dashboard';
+import apiAvis from './methods/avis';
+import apiAvisComments from './methods/aviscomments';
+import apiParties from './methods/parties';
+import apiPartiesComments from './methods/partiesComments';
+import apiMessages from './methods/messages';
 import apiAvisRatings from './methods/ratings';
 import apiUsers from './methods/users';
 import apiAdsCampaigns from './methods/adscampaigns';
@@ -107,12 +110,13 @@ export default {
     const repositories = {
       auth: apiAuth(this.apiInstance),
       profile: apiProfile(this.apiInstance),
-      avis: apiAvis(this.apiInstance),
       adminDashboard: apiDashboard(this.apiInstance),
       messages: apiMessages(this.apiInstance),
       users: apiUsers(this.apiInstance),
-      adminAvis: apiAvis(this.apiInstance),
+      avis: apiAvis(this.apiInstance),
       avisComments: apiAvisComments(this.apiInstance),
+      parties: apiParties(this.apiInstance),
+      partiesComments: apiPartiesComments(this.apiInstance),
       avisRatings: apiAvisRatings(this.apiInstance),
       adminAdsCampaigns: apiAdsCampaigns(this.apiInstance)
     };

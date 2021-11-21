@@ -55,10 +55,6 @@
         </div>
       </template>
 
-      <template #cell(id)="data">
-        {{ data.item.id }}
-      </template>
-
       <template #cell(name)="data">
         <div class="d-flex">
           <div v-if="data.item.name" class="mr-3">

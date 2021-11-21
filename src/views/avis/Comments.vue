@@ -54,7 +54,7 @@
       :fields="commentsFields"
     >
 
-      <template #head(select)="data">
+      <template #head(select)>
         <div class="d-flex justify-content-center align-items-center h-100">
           <b-checkbox type="checkbox" @change="selectAllRows"/>
         </div>
@@ -121,8 +121,7 @@
   </div>
 </template>
 <script>
-import moment from "moment";
-import {mapActions} from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   data() {
@@ -194,7 +193,7 @@ export default {
     },
 
     remove() {
-      this.$api.adminComments.delete(this.deletableId).then(response => {
+      this.$api.avisComments.delete(this.deletableId).then(response => {
         if (response.data.status === 'success') {
           this.fetchComments();
           this.deletableId = null;
@@ -204,7 +203,7 @@ export default {
 
 
     fetchComments() {
-      this.$api.adminComments.fetch(this.currentPage, this.params).then(response => {
+      this.$api.avisComments.fetch(this.currentPage, this.params).then(response => {
         this.comments = response.data.data.map(item => {
           item.selected = false;
           return item;
@@ -243,14 +242,14 @@ export default {
     },
 
     bulkOpinion(opinion) {
-      this.$api.adminComments.bulkOpinion(this.ids, opinion).then(() => {
+      this.$api.avisComments.bulkOpinion(this.ids, opinion).then(() => {
         this.ids = [];
         this.fetchComments();
       })
     },
 
     bulkDelete() {
-      this.$api.adminComments.bulkDelete(this.ids).then(() => {
+      this.$api.avisComments.bulkDelete(this.ids).then(() => {
         this.ids = [];
         this.fetchComments();
       });

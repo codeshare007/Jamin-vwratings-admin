@@ -1,22 +1,22 @@
 export default axios => ({
   fetch(page = 1, filter = {}) {
-    return axios.get('admin/users', {
+    return axios.get('users', {
       params: {page: page, ...filter}
     });
   },
   get(id) {
-    return axios.get(`admin/users/${id}`)
+    return axios.get(`users/${id}`)
   },
   create(payload) {
-    return axios.post('admin/users', payload)
+    return axios.post('users', payload)
   },
   update(id, payload) {
-    return axios.put(`admin/users/${id}`, payload)
+    return axios.put(`users/${id}`, payload)
   },
   delete(id) {
-    return axios.delete(`admin/users/${id}`)
+    return axios.delete(`users/${id}`)
   },
   bulkDelete(ids) {
-    return axios.post('admin/users/bulk-delete', {ids: ids})
+    return axios.post('users/bulk-delete', {ids: ids})
   }
 });

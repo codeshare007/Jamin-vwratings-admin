@@ -12,7 +12,7 @@
           <b-nav-item :to="{ name: 'cabinet.messages'}">
             <b-icon-chat-text /> <span class="ml-2">Messages</span>
           </b-nav-item>
-          <b-nav-item :to="{ name: 'cabinet.ads_campaigns'}">
+          <b-nav-item :to="{ name: 'cabinet.ads.campaigns'}">
             <b-icon-cash /> <span class="ml-2">Ads Campagins</span>
           </b-nav-item>
           <b-nav-item :to="{ name: 'cabinet.avis' }">

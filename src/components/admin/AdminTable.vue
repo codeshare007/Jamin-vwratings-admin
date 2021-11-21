@@ -25,7 +25,6 @@
       </b-col>
     </div>
     <b-table
-      table-variant="dark"
       ref="userTable"
       no-local-sorting
       :sort-by.sync="sortBy"
@@ -92,6 +91,7 @@
 import {mapActions} from "vuex";
 
 export default {
+
   props: {
     fields: Array,
     entity: String,
@@ -101,7 +101,7 @@ export default {
   data() {
     return {
       ids: [],
-      users: [],
+      items: [],
       loading: false,
       selectAll: false,
       sortBy: 'created_at',
@@ -139,7 +139,7 @@ export default {
     },
     search(data) {
       this.params.search = data;
-      this.fetchItems()
+      this.fetchItems();
     }
   },
 
@@ -148,16 +148,17 @@ export default {
   },
 
   methods: {
-
     ...mapActions({
       createUser: 'dialogs/user/create',
-      editUser: 'dialogs/user/edit',
-      fetchUsers: 'users/FETCH'
+      editUser: 'dialogs/user/edit'
     }),
 
-    fetchUsers() {
+    fetchItems() {
       this.loading = true;
-      this.$api.adminUsers.fetch(this.currentPage, this.params).then(response => {
+
+      console.log(this.entities);
+
+      this.$api[this.entities].fetch(this.currentPage, this.params).then(response => {
         this.users = response.data.data.map(item => {
           item.selected = false;
           return item;
@@ -169,46 +170,42 @@ export default {
     },
 
     create() {
-      this.createUser().then(() => this.fetchUsers());
+      this.createUser().then(() => this.fetchItems());
     },
     edit(id) {
-      this.editUser(id).then(() => this.fetchUsers());
+      this.editUser(id).then(() => this.fetchItems());
     },
     remove() {
-      this.$api.adminUsers.delete(this.deletableId).then(response => {
+      this.$api[this.entities].delete(this.deletableId).then(response => {
         if (response.data.status === 'success') {
-          this.fetchUsers();
+          this.fetchItems();
           this.deletableId = null;
         }
       })
     },
 
     bulkDelete() {
-      this.$api.adminUsers.bulkDelete(this.ids).then(() => {
+      this.$api[this.method].bulkDelete(this.ids).then(() => {
         this.ids = [];
-        this.fetchUsers();
+        this.fetchItems();
       });
     },
 
     selectAllRows() {
       this.selectAll = !this.selectAll;
-      this.users = this.users.map(item => {
+      this.items = this.items.map(item => {
         item.selected = this.selectAll;
         return item;
       })
 
-      this.ids = this.users
-        .filter(item => {
-          if (item.selected) return item.id
-        })
+      this.ids = this.items
+        .filter(item => { if (item.selected) return item.id })
         .map(item => item.id);
     },
 
     rowSelected() {
-      this.ids = this.users
-        .filter(item => {
-          if (item.selected) return item.id
-        })
+      this.ids = this.items
+        .filter(item => { if (item.selected) return item.id })
         .map(item => item.id);
     },
 
@@ -219,16 +216,15 @@ export default {
 
     handlePageChange(value) {
       this.params.page = value;
-      this.fetchUsers()
+      this.fetchItems()
     }
   }
 }
 </script>
 <style lang="scss">
-  .adminTable {
-    background: #24252d;
-    padding: 25px;
-    border-radius: 5px;
-    margin-bottom: 100px;
-  }
+.adminTable {
+  padding: 25px;
+  border-radius: 5px;
+  margin-bottom: 100px;
+}
 </style>
