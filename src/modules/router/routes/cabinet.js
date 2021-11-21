@@ -49,13 +49,13 @@ export default [
   },
   {
     name: 'cabinet.parties.comments',
-    path: 'parties/comments',
+    path: 'parties-comments',
     component: () => import('@/views/parties/Comments'),
     meta: {title: 'PartiesComments'}
   },
   {
     name: 'cabinet.parties.ratings',
-    path: 'parties/ratings',
+    path: 'parties-ratings',
     component: () => import('@/views/parties/Ratings'),
     meta: {title: 'Parties Ratings'}
   },

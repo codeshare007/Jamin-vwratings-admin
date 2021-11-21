@@ -1,5 +1,6 @@
 <template>
   <div class="admin-messages">
+
     <div class="d-flex justify-content-between mb-3">
       <b-col class="p-0 d-flex justify-items-start">
         <b-pagination
@@ -27,6 +28,7 @@
         </b-button>
       </b-col>
     </div>
+
     <b-table
       no-local-sorting
       ref="messagesTable"
@@ -38,18 +40,19 @@
       :items="messages"
       :fields="messagesFields"
     >
+
       <template #head(select)>
         <div class="d-flex justify-content-center align-items-center h-100">
           <b-checkbox type="checkbox" @change="selectAllRows"/>
         </div>
       </template>
 
-      <template #cell(select)>
+      <template #cell(select)="row">
         <div class="d-flex justify-content-center align-items-center h-100">
           <b-checkbox
             type="checkbox"
-            :checked="data.item.selected"
-            v-model="data.item.selected"
+            :checked="row.item.selected"
+            v-model="row.item.selected"
             @change="rowSelected"
           />
         </div>
@@ -177,9 +180,7 @@ export default {
 
     fetchMessages() {
       this.loading = true;
-      this.$api.messages
-        .fetch(this.currentPage, this.params)
-        .then(response => {
+      this.$api.messages.fetch(this.currentPage, this.params).then(response => {
         this.messages = response.data.data.map(item => {
           item.selected = false;
           return item;

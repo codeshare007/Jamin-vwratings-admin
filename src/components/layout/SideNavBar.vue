@@ -30,6 +30,9 @@
           <b-nav-item :to="{ name: 'cabinet.parties.comments'}">
             <b-icon-chat-text /> <span class="ml-2">Parties Comments</span>
           </b-nav-item>
+          <b-nav-item :to="{ name: 'cabinet.parties.ratings'}">
+            <b-icon-chat-text /> <span class="ml-2">Parties Ratings</span>
+          </b-nav-item>
         </b-navbar-nav>
       </b-nav>
     </div>

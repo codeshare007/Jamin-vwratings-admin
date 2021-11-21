@@ -19,9 +19,9 @@
           </b-form-group>
         </b-col>
         <b-col>
-          <b-form-group label="Individual radios" v-slot="{ ariaDescribedby }">
-            <b-form-radio v-model="campaign.active" :aria-describedby="ariaDescribedby" name="some-radios" value="1">Yes</b-form-radio>
-            <b-form-radio v-model="campaign.active" :aria-describedby="ariaDescribedby" name="some-radios" value="0">No</b-form-radio>
+          <b-form-group label="Active">
+            <b-form-radio v-model="campaign.active" name="some-radios" value="1">Yes</b-form-radio>
+            <b-form-radio v-model="campaign.active" name="some-radios" value="0">No</b-form-radio>
           </b-form-group>
         </b-col>
       </b-row>

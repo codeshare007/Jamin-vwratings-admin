@@ -40,12 +40,12 @@
         </div>
       </template>
 
-      <template #cell(select)="data">
+      <template #cell(select)="row">
         <div class="d-flex justify-content-center align-items-center h-100">
           <b-checkbox
             type="checkbox"
-            :checked="data.item.selected"
-            v-model="data.item.selected"
+            :checked="row.item.selected"
+            v-model="row.item.selected"
             @change="rowSelected"
           />
         </div>
@@ -159,7 +159,7 @@ export default {
     },
 
     fetchAvis() {
-      this.$api.adminAvis.fetch(this.currentPage, this.params).then(response => {
+      this.$api.avis.fetch(this.currentPage, this.params).then(response => {
         this.avis = response.data.data.map(item => {
           item.selected = false;
           return item;
@@ -192,7 +192,7 @@ export default {
     },
 
     remove() {
-      this.$api.adminAvis.delete(this.deletableId).then(response => {
+      this.$api.avis.delete(this.deletableId).then(response => {
         if (response.data.status === 'success') {
           this.fetchAvis();
           this.deletableId = null;
@@ -201,7 +201,7 @@ export default {
     },
 
     bulkDelete() {
-      this.$api.adminAvis.bulkDelete(this.ids).then(() => {
+      this.$api.avis.bulkDelete(this.ids).then(() => {
         this.ids = [];
         this.fetchAvis();
       });

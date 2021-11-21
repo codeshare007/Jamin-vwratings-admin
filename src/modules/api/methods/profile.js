@@ -5,6 +5,9 @@ export default axios => ({
   update(payload) {
     return axios.post('profile', payload)
   },
+  claim(payload) {
+    return axios.post('claim', payload)
+  },
   comments() {
     return axios.get('comments');
   },
