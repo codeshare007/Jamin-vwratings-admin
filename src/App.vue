@@ -1,22 +1,59 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <div v-if="isAdmin">
+      <UserEditDialog />
+      <AviEditDialog />
+      <AviCommentEditDialog />
+      <AdsCampaignEditDialog />
+    </div>
+    <router-view />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import {mapState} from "vuex";
+import UserEditDialog from "./components/admin/dialogs/UserEditDialog";
+import AviEditDialog from "./components/admin/dialogs/AviEditDialog";
+import AviCommentEditDialog from "./components/admin/dialogs/AviCommentEditDialog";
+import AdsCampaignEditDialog from "./components/admin/dialogs/AdsCampaignEditDialog";
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
+    UserEditDialog,
+    AviEditDialog,
+    AviCommentEditDialog,
+    AdsCampaignEditDialog
+  },
+
+  data() {
+    return {
+      isLoading: false,
+      fullPage: true
+    }
+  },
+
+  computed: {
+    ...mapState('auth', {
+      loggedIn: state => state.loggedIn,
+      isAdmin: state => state.isAdmin
+    }),
+  },
+
+  methods: {
+    preloader() {
+      this.preloader();
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false
+      }, 500)
+    },
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
