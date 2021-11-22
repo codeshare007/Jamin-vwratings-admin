@@ -15,11 +15,12 @@
           <b-nav-item :to="{ name: 'cabinet.ads.campaigns'}">
             <b-icon-cash /> <span class="ml-2">Ads Campagins</span>
           </b-nav-item>
+          <div class="border-top border-secondary"></div>
           <b-nav-item :to="{ name: 'cabinet.avis' }">
             <b-icon-person-fill /> <span class="ml-2">Avis</span>
           </b-nav-item>
           <b-nav-item :to="{ name: 'cabinet.avis.claims'}">
-            <b-icon-plus /> <span class="ml-2">Avis Claims</span>
+            <b-icon-hand-index /> <span class="ml-2">Avis Claims</span>
           </b-nav-item>
           <b-nav-item :to="{ name: 'cabinet.avis.comments' }">
             <b-icon-chat-text /> <span class="ml-2">Avis Comments</span>
@@ -27,14 +28,18 @@
           <b-nav-item :to="{ name: 'cabinet.avis.ratings' }">
             <b-icon-star /> <span class="ml-2">Avis Ratings</span>
           </b-nav-item>
+          <div class="border-top border-secondary"></div>
           <b-nav-item :to="{ name: 'cabinet.parties'}">
             <b-icon-people /> <span class="ml-2">Parties</span>
+          </b-nav-item>
+          <b-nav-item :to="{ name: 'cabinet.parties.claims'}">
+            <b-icon-hand-index /> <span class="ml-2">Parties Claims</span>
           </b-nav-item>
           <b-nav-item :to="{ name: 'cabinet.parties.comments'}">
             <b-icon-chat-text /> <span class="ml-2">Parties Comments</span>
           </b-nav-item>
           <b-nav-item :to="{ name: 'cabinet.parties.ratings'}">
-            <b-icon-chat-text /> <span class="ml-2">Parties Ratings</span>
+            <b-icon-star /> <span class="ml-2">Parties Ratings</span>
           </b-nav-item>
         </b-navbar-nav>
       </b-nav>

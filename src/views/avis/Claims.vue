@@ -2,19 +2,9 @@
   <div class="adminAvisClaims">
     <div class="d-flex justify-content-between mb-3">
       <b-col class="p-0  d-flex justify-items-start">
-        <b-pagination
-          class="m-0"
-          v-model="currentPage"
-          @change="handlePageChange"
-          :total-rows="total"
-        />
+        <b-pagination class="m-0" v-model="currentPage" @change="handlePageChange" :total-rows="total" />
         <div class="ml-3" v-if="ids.length > 0">
-          <b-button
-            class="mr-4"
-            variant="danger"
-            @click="$refs['bulkModal'].show()"
-          >Bulk Delete
-          </b-button>
+          <b-button class="mr-4" variant="danger" @click="$refs['bulkModal'].show()">Bulk Delete</b-button>
         </div>
       </b-col>
       <b-col cols="4" class="p-0 d-flex justify-content-end align-items-center">
@@ -22,6 +12,7 @@
           class="mr-2 search-link"
           v-model="search"
           placeholder="Search..."/>
+        <b-button variant="success" @click="create" class="mr-2">Create</b-button>
         <b-button variant="primary" @click="fetchAviClaims()">
           <b-icon-arrow-clockwise/>
         </b-button>
@@ -152,6 +143,10 @@ export default {
       createAviClaim: 'dialogs/aviClaim/create',
       editAviClaim: 'dialogs/aviClaim/edit',
     }),
+
+    create() {
+      this.createAviClaim().then(() => this.fetchAviClaims())
+    },
 
     edit(id) {
       this.editAviClaim(id).then(() => this.fetchAviClaims());

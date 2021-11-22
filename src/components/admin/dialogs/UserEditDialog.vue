@@ -3,20 +3,20 @@
     :title="user.id ? 'Edit User' : 'Create User'"
     :visible.sync="visible"
     @submit.prevent.native=""
-    @hide="handleClose(null)"
-  >
+    @hide="handleClose(null)">
+
     <b-form>
       <b-form-group label="Username">
-        <b-input type="text" v-model="user.username" />
+        <b-input type="text" v-model="user.username"/>
       </b-form-group>
       <b-form-group label="Email">
-        <b-input type="text" v-model="user.email" />
+        <b-input type="text" v-model="user.email"/>
       </b-form-group>
       <b-form-group label="Role">
-        <b-form-select :options="roles" v-model="user.role" />
+        <b-form-select :options="roles" v-model="user.role"/>
       </b-form-group>
       <b-form-group label="Password">
-        <b-input type="password" v-model="user.password" />
+        <b-input type="password" v-model="user.password"/>
       </b-form-group>
     </b-form>
 
@@ -30,6 +30,7 @@
 <script>
 
 import {mapActions, mapState} from 'vuex';
+
 export default {
   name: 'UserEditDialog',
   data() {
@@ -60,15 +61,10 @@ export default {
       form: state => state
     }),
     visible: {
-      get() {
-        return !!(this.status === 'create' || this.status === 'edit')
-      },
-      set() {
-        this.status = 'hidden'
-      }
+      get() {return !!(this.status === 'create' || this.status === 'edit')},
+      set() {this.status = 'hidden'}
     }
   },
-
 
   watch: {
     form: {
@@ -87,7 +83,6 @@ export default {
     }
   },
 
-
   methods: {
     ...mapActions({
       close: 'dialogs/user/clear',
@@ -100,9 +95,11 @@ export default {
     },
     load() {
       this.loading = true;
-      this.$api.adminUsers.get(this.user.id).then(response => {
-        this.user = response.data;
-      }).catch(() => {
+      this.$api.users
+        .get(this.user.id)
+        .then(response => {
+          this.user = response.data;
+        }).catch(() => {
         this.reject();
         this.clearData();
         this.close();
@@ -113,10 +110,12 @@ export default {
     create() {
       this.error = null;
       this.loading = true;
-      this.$api.adminUsers.create(this.user).then(response => {
-        this.resolve(response);
-        this.handleClose();
-      }).catch(() => {
+      this.$api.users
+        .create(this.user)
+        .then(response => {
+          this.resolve(response);
+          this.handleClose();
+        }).catch(() => {
       }).finally(() => {
         this.loading = false;
       })
@@ -124,10 +123,12 @@ export default {
     edit() {
       this.error = null;
       this.loading = true;
-      this.$api.adminUsers.update(this.user.id, this.user).then(response => {
-        this.resolve(response);
-        this.handleClose();
-      }).catch(() => {
+      this.$api.users
+        .update(this.user.id, this.user)
+        .then(response => {
+          this.resolve(response);
+          this.handleClose();
+        }).catch(() => {
       }).finally(() => {
         this.loading = false;
       })

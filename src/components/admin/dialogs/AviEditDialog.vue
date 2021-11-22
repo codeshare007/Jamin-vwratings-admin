@@ -3,14 +3,14 @@
     :title="avi.id ? 'Edit Avi' : 'Create Avi'"
     :visible.sync="visible"
     @submit.prevent.native=""
-    @hide="handleClose(null)"
-  >
+    @hide="handleClose(null)">
+
     <b-form>
       <b-form-group label="Avi name">
-        <b-input type="text" v-model="avi.name" />
+        <b-input type="text" v-model="avi.name"/>
       </b-form-group>
       <b-form-group label="User Id">
-        <b-input type="text" v-model="avi.user_id" />
+        <b-input type="text" v-model="avi.user_id"/>
       </b-form-group>
     </b-form>
 
@@ -24,8 +24,10 @@
 <script>
 
 import {mapActions, mapState} from 'vuex';
+
 export default {
-  name: 'UserEditDialog',
+  name: 'AviEditDialog',
+
   data() {
     let initialState = {
       id: null,
@@ -48,12 +50,8 @@ export default {
       form: state => state
     }),
     visible: {
-      get() {
-        return !!(this.status === 'create' || this.status === 'edit')
-      },
-      set() {
-        this.status = 'hidden'
-      }
+      get() {return !!(this.status === 'create' || this.status === 'edit')},
+      set() {this.status = 'hidden'}
     }
   },
 
@@ -88,9 +86,10 @@ export default {
     },
     load() {
       this.loading = true;
-      this.$api.adminAvis.get(this.avi.id).then(response => {
-        this.avi = response.data;
-      }).catch(() => {
+      this.$api.adminAvis.get(this.avi.id)
+        .then(response => {
+          this.avi = response.data;
+        }).catch(() => {
         this.reject();
         this.clearData();
         this.close();
@@ -101,10 +100,11 @@ export default {
     create() {
       this.error = null;
       this.loading = true;
-      this.$api.adminAvis.create(this.avi).then(response => {
-        this.resolve(response);
-        this.handleClose();
-      }).catch(() => {
+      this.$api.avis.create(this.avi)
+        .then(response => {
+          this.resolve(response);
+          this.handleClose();
+        }).catch(() => {
       }).finally(() => {
         this.loading = false;
       })
@@ -112,10 +112,11 @@ export default {
     edit() {
       this.error = null;
       this.loading = true;
-      this.$api.adminAvis.update(this.avi.id, this.avi).then(response => {
-        this.resolve(response);
-        this.handleClose();
-      }).catch(() => {
+      this.$api.avis.update(this.avi.id, this.avi)
+        .then(response => {
+          this.resolve(response);
+          this.handleClose();
+        }).catch(() => {
       }).finally(() => {
         this.loading = false;
       })

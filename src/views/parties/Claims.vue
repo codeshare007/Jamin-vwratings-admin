@@ -1,43 +1,19 @@
 <template>
-  <div class="adminComments">
+  <div class="adminPartyClaims">
     <div class="d-flex justify-content-between mb-3">
       <b-col class="p-0  d-flex justify-items-start">
-        <b-pagination
-          class="m-0"
-          v-model="currentPage"
-          @change="handlePageChange"
-          :total-rows="total"
-        />
+        <b-pagination class="m-0" v-model="currentPage" @change="handlePageChange" :total-rows="total"/>
         <div class="ml-3" v-if="ids.length > 0">
-          <b-button
-            class="mr-4"
-            variant="danger"
-            @click="$refs['bulkModal'].show()"
-          >Bulk Delete
-          </b-button>
-          <b-button
-            variant="success"
-            @click="bulkOpinion(1)"
-          >Set Positive
-          </b-button>
-          <b-button
-            variant="danger"
-            @click="bulkOpinion(2)"
-          >Set Negative
-          </b-button>
-          <b-button
-            variant="dark"
-            @click="bulkOpinion(0)"
-          >Remove Opinion
-          </b-button>
+          <b-button class="mr-4" variant="danger" @click="$refs['bulkModal'].show()">Bulk Delete</b-button>
         </div>
       </b-col>
       <b-col cols="4" class="p-0 d-flex justify-content-end align-items-center">
         <b-form-input
           class="mr-2 search-link"
           v-model="search"
-          placeholder="Search..." />
-        <b-button variant="primary" @click="fetchComments()">
+          placeholder="Search..."/>
+        <b-button variant="success" @click="create" class="mr-2">Create</b-button>
+        <b-button variant="primary" @click="fetchPartyClaims()">
           <b-icon-arrow-clockwise/>
         </b-button>
       </b-col>
@@ -56,7 +32,7 @@
 
       <template #head(select)>
         <div class="d-flex justify-content-center align-items-center h-100">
-          <b-checkbox type="checkbox" @change="selectAllRows" />
+          <b-checkbox type="checkbox" @change="selectAllRows"/>
         </div>
       </template>
 
@@ -75,35 +51,12 @@
         {{ row.index + 1 }}
       </template>
 
-      <template #cell(opinion)="row">
-        {{ row.item.opinion | opinion }}
-      </template>
-
-      <template #cell(content)="row">
-        <div>
-          {{ row.item.content }}
-        </div>
-
-        <div v-for="(item, key) in row.item.attachments" :key="key">
-          <viewer>
-            <img class="adminComments__attachment" :src="item.path" :alt="item.filename" />
-          </viewer>
-        </div>
-      </template>
-
       <template #cell(actions)="row">
-        <b-button
-          variant="primary"
-          size="sm"
-          @click="edit(row.item.id)"
-        >
-          <b-icon-pencil />
+        <b-button variant="primary" size="sm" @click="edit(row.item.id)" class="mr-2">
+          <b-icon-pencil/>
         </b-button>
-        <b-button
-          variant="danger"
-          size="sm"
-          @click="showDeleteModal(row.item.id)">
-          <b-icon-trash />
+        <b-button variant="danger" size="sm" @click="showDeleteModal(row.item.id)">
+          <b-icon-trash/>
         </b-button>
       </template>
     </b-table>
@@ -115,25 +68,25 @@
 
     <b-modal
       ref="bulkModal"
-      title="Delete Comments"
+      title="Delete Claim"
       @ok="bulkDelete"
       ok-variant="danger"
       ok-title="Delete">
-      Are you sure that you want to delete selected comments?
+      Are you sure that you want to delete selected claim?
     </b-modal>
 
     <b-modal
       ref="deleteModal"
-      title="Delete Comment"
+      title="Delete Claim"
       @ok="remove"
       ok-variant="danger"
       ok-title="Delete">
-      Are you sure that you want to delete this comment?
+      Are you sure that you want to delete this claim?
     </b-modal>
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import {mapActions} from "vuex";
 
 export default {
   data() {
@@ -156,21 +109,11 @@ export default {
       commentsFields: [
         {key: 'select', label: '', sortable: false},
         {key: 'id', label: '#', sortable: true},
-        {key: 'username', label: 'user', sortable: true},
-        {key: 'name', label: 'avi', sortable: true},
-        {key: 'content'},
-        {key: 'opinion', sortable: true},
+        {key: 'user.username', label: 'user', sortable: true},
+        {key: 'avi.name', label: 'avi', sortable: true},
+        {key: 'claimed_until', label: 'claimed_until', sortable: true},
         {key: 'actions', thStyle: 'min-width: 120px', sortable: false}
       ]
-    }
-  },
-
-  filters: {
-    opinion(data) {
-      if (data === 1) return 'positive';
-      if (data === 2) return 'negative';
-
-      return '—'
     }
   },
 
@@ -178,52 +121,61 @@ export default {
     sortBy(data) {
       if (data) {
         this.params.sortBy = data;
-        this.fetchComments();
+        this.fetchPartyClaims();
       }
     },
     isDesc(data) {
       this.params.sort = (data === true ? 'desc' : 'asc')
-      this.fetchComments();
+      this.fetchPartyClaims();
     },
     search(data) {
       this.params.search = data;
-      this.fetchComments()
+      this.fetchPartyClaims()
     }
   },
 
   mounted() {
-    this.fetchComments()
+    this.fetchPartyClaims()
   },
 
   methods: {
     ...mapActions({
-      editAviComment: 'dialogs/aviComment/edit',
+      createPartyClaim: 'dialogs/partyClaim/create',
+      editPartClaim: 'dialogs/partyClaim/edit',
     }),
 
+    create() {
+      this.createPartyClaim().then(() => this.fetchPartyClaims())
+    },
+
     edit(id) {
-      this.editAviComment(id).then(() => this.fetchComments());
+      this.editPartClaim(id).then(() => this.fetchPartyClaims());
     },
 
     remove() {
-      this.$api.avisComments.delete(this.deletableId).then(response => {
-        if (response.data.status === 'success') {
-          this.fetchComments();
-          this.deletableId = null;
-        }
-      })
+      this.$api.partyClaims
+        .delete(this.deletableId)
+        .then(response => {
+          if (response.data.status === 'success') {
+            this.fetchPartyClaims();
+            this.deletableId = null;
+          }
+        })
     },
 
-
-    fetchComments() {
-      this.$api.avisComments.fetch(this.currentPage, this.params).then(response => {
-        this.comments = response.data.data.map(item => {
-          item.selected = false;
-          return item;
-        });
-        this.currentPage = response.data.current_page;
-        this.total = response.data.total;
-        this.loading = false;
-      })
+    fetchPartyClaims() {
+      this.$api.partyClaims
+        .fetch(this.currentPage, this.params)
+        .then(response => {
+          this.comments = response.data.data
+            .map(item => {
+              item.selected = false;
+              return item;
+            });
+          this.currentPage = response.data.current_page;
+          this.total = response.data.total;
+          this.loading = false;
+        })
     },
 
     selectAllRows() {
@@ -232,7 +184,6 @@ export default {
         item.selected = this.selectAll;
         return item;
       })
-
       this.ids = this.comments
         .filter(item => {
           if (item.selected) return item.id
@@ -253,38 +204,26 @@ export default {
       this.$refs['deleteModal'].show()
     },
 
-    bulkOpinion(opinion) {
-      this.$api.avisComments.bulkOpinion(this.ids, opinion).then(() => {
-        this.ids = [];
-        this.fetchComments();
-      })
-    },
-
     bulkDelete() {
-      this.$api.avisComments.bulkDelete(this.ids).then(() => {
-        this.ids = [];
-        this.fetchComments();
-      });
+      this.$api.avisClaims
+        .bulkDelete(this.ids)
+        .then(() => {
+          this.ids = [];
+          this.fetchPartyClaims();
+        });
     },
 
     handlePageChange(value) {
       this.params.page = value;
-      this.fetchComments()
+      this.fetchPartyClaims()
     }
   }
 }
 </script>
 <style lang="scss">
-.adminComments {
+.adminPartyClaims {
   padding: 25px;
   border-radius: 5px;
   margin-bottom: 100px;
-
-  &__attachment {
-    cursor: pointer;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-  }
 }
 </style>

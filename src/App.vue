@@ -5,6 +5,7 @@
       <AviEditDialog />
       <AviCommentEditDialog />
       <AdsCampaignEditDialog />
+      <AviClaimEditDialog />
     </div>
     <router-view />
   </div>
@@ -12,10 +13,12 @@
 
 <script>
 import {mapState} from "vuex";
+
 import UserEditDialog from "./components/admin/dialogs/UserEditDialog";
 import AviEditDialog from "./components/admin/dialogs/AviEditDialog";
 import AviCommentEditDialog from "./components/admin/dialogs/AviCommentEditDialog";
 import AdsCampaignEditDialog from "./components/admin/dialogs/AdsCampaignEditDialog";
+import AviClaimEditDialog from './components/admin/dialogs/AviClaimEditDialog'
 
 export default {
   name: 'App',
@@ -24,7 +27,8 @@ export default {
     UserEditDialog,
     AviEditDialog,
     AviCommentEditDialog,
-    AdsCampaignEditDialog
+    AdsCampaignEditDialog,
+    AviClaimEditDialog
   },
 
   data() {

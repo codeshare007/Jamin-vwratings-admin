@@ -4,8 +4,8 @@
     :visible.sync="visible"
     @submit.prevent.native=""
     size="lg"
-    @hide="handleClose(null)"
-  >
+    @hide="handleClose(null)">
+
     <b-form>
       <b-row>
         <b-col>
