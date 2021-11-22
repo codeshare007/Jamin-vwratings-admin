@@ -15,9 +15,7 @@
             <template #button-content>
               <span class="text-dark">{{ profile.username }}</span>
             </template>
-            <b-dropdown-item class="text-dark" href="#" :to="{name: 'cabinet.profile'}">
-              Profile
-            </b-dropdown-item>
+            <b-dropdown-item href="/profile">Profile</b-dropdown-item>
             <b-dropdown-item @click="emitLogout()">Logout</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
