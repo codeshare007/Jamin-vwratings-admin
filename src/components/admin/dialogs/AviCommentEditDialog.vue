@@ -97,7 +97,7 @@ export default {
     },
     load() {
       this.loading = true;
-      this.$api.aviComments
+      this.$api.avisComments
         .get(this.aviComment.id)
         .then(response => {
           this.aviComment = response.data;
@@ -112,7 +112,7 @@ export default {
     create() {
       this.error = null;
       this.loading = true;
-      this.$api.aviComments
+      this.$api.avisComments
         .create(this.aviComment)
         .then(response => {
           this.resolve(response);
@@ -125,7 +125,7 @@ export default {
     edit() {
       this.error = null;
       this.loading = true;
-      this.$api.aviComments
+      this.$api.avisComments
         .update(this.aviComment.id, this.aviComment)
         .then(response => {
           this.resolve(response);

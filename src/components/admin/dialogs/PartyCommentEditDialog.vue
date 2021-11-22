@@ -1,94 +1,106 @@
 <template>
   <b-modal
-    :title="avi.id ? 'Edit Avi' : 'Create Avi'"
+    :title="partyComment.id ? 'Edit Comment' : 'Create Comment'"
     :visible.sync="visible"
     @submit.prevent.native=""
-    @hide="handleClose(null)">
-
+    @hide="handleClose(null)"
+  >
     <b-form>
-      <b-form-group label="Avi name">
-        <b-input type="text" v-model="avi.name"/>
-      </b-form-group>
       <b-form-group label="User Id">
-        <b-input type="text" v-model="avi.user_id"/>
+        <b-input type="text" v-model="partyComment.user_id"/>
+      </b-form-group>
+      <b-form-group label="Party Id">
+        <b-input type="text" v-model="partyComment.party_id"/>
+      </b-form-group>
+      <b-form-group label="Content">
+        <b-form-textarea rows="7" type="text" v-model="partyComment.content"/>
+      </b-form-group>
+      <b-form-group label="Opinion">
+        <b-form-radio-group
+          id="btn-radios-1"
+          v-model="partyComment.opinion"
+          :options="{1: 'Positive', 2: 'Negative', 0: 'Unset'}"
+          name="radios-btn-default"
+          buttons
+        />
       </b-form-group>
     </b-form>
 
     <template #modal-footer="{ ok, cancel }">
       <b-button @click="handleClose(null) && cancel()">Cancel</b-button>
-      <b-button variant="primary" v-if="avi.id" @click="edit() && ok()">Save</b-button>
+      <b-button variant="primary" v-if="partyComment.id" @click="edit() && ok()">Save</b-button>
       <b-button variant="success" v-else @click="create" :disabled="loading">Create</b-button>
     </template>
   </b-modal>
 </template>
 <script>
-
 import {mapActions, mapState} from 'vuex';
 
 export default {
-  name: 'AviEditDialog',
-
+  name: 'partyCommentDialog',
   data() {
     let initialState = {
       id: null,
       user_id: null,
-      name: null,
+      party_id: null,
+      opinion: null,
+      content: null
     };
     return {
       loading: false,
       status: 'hidden',
       resolve: null,
       reject: null,
-      avi: initialState,
+      partyComment: initialState,
       initialState: initialState,
       error: null
     }
   },
 
   computed: {
-    ...mapState('dialogs/avi', {
+    ...mapState('dialogs/partyComment', {
       form: state => state
     }),
     visible: {
-      get() {return !!(this.status === 'create' || this.status === 'edit')},
-      set() {this.status = 'hidden'}
+      get() {
+        return !!(this.status === 'create' || this.status === 'edit')
+      },
+      set() {
+        this.status = 'hidden'
+      }
     }
   },
-
 
   watch: {
     form: {
       deep: true,
       handler(value) {
         this.clearData();
-        this.avi.id = value.id;
+        this.partyComment.id = value.id;
         this.status = value.status;
         this.resolve = value.resolve;
         this.reject = value.reject;
-
-        if (this.avi.id) {
-          this.load();
-        }
+        if (this.partyComment.id) this.load();
       }
     }
   },
 
-
   methods: {
     ...mapActions({
-      close: 'dialogs/avi/clear',
+      close: 'dialogs/partyComment/clear',
     }),
     clearData() {
-      this.avi = this.initialState;
+      this.partyComment = this.initialState;
     },
     handleClose(done = null) {
       done ? done() : this.status = 'hidden';
     },
     load() {
       this.loading = true;
-      this.$api.avis.get(this.avi.id)
+      this.$api.partiesComments
+        .get(this.partyComment.id)
         .then(response => {
-          this.avi = response.data;
+          this.partyComment = response.data;
         }).catch(() => {
         this.reject();
         this.clearData();
@@ -100,7 +112,8 @@ export default {
     create() {
       this.error = null;
       this.loading = true;
-      this.$api.avis.create(this.avi)
+      this.$api.partiesComments
+        .create(this.partyComment)
         .then(response => {
           this.resolve(response);
           this.handleClose();
@@ -112,7 +125,8 @@ export default {
     edit() {
       this.error = null;
       this.loading = true;
-      this.$api.avis.update(this.avi.id, this.avi)
+      this.$api.partiesComments
+        .update(this.partyComment.id, this.partyComment)
         .then(response => {
           this.resolve(response);
           this.handleClose();

@@ -110,7 +110,7 @@ export default {
         {key: 'select', label: '', sortable: false},
         {key: 'id', label: '#', sortable: true},
         {key: 'user.username', label: 'user', sortable: true},
-        {key: 'avi.name', label: 'avi', sortable: true},
+        {key: 'party.name', label: 'party', sortable: true},
         {key: 'claimed_until', label: 'claimed_until', sortable: true},
         {key: 'actions', thStyle: 'min-width: 120px', sortable: false}
       ]
@@ -153,7 +153,7 @@ export default {
     },
 
     remove() {
-      this.$api.partyClaims
+      this.$api.partiesClaims
         .delete(this.deletableId)
         .then(response => {
           if (response.data.status === 'success') {
@@ -164,7 +164,7 @@ export default {
     },
 
     fetchPartyClaims() {
-      this.$api.partyClaims
+      this.$api.partiesClaims
         .fetch(this.currentPage, this.params)
         .then(response => {
           this.comments = response.data.data
@@ -205,7 +205,7 @@ export default {
     },
 
     bulkDelete() {
-      this.$api.avisClaims
+      this.$api.partiesClaims
         .bulkDelete(this.ids)
         .then(() => {
           this.ids = [];

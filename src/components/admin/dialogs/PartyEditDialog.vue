@@ -1,22 +1,22 @@
 <template>
   <b-modal
-    :title="avi.id ? 'Edit Avi' : 'Create Avi'"
+    :title="party.id ? 'Edit Party' : 'Create Party'"
     :visible.sync="visible"
     @submit.prevent.native=""
     @hide="handleClose(null)">
 
     <b-form>
-      <b-form-group label="Avi name">
-        <b-input type="text" v-model="avi.name"/>
+      <b-form-group label="Party name">
+        <b-input type="text" v-model="party.name"/>
       </b-form-group>
       <b-form-group label="User Id">
-        <b-input type="text" v-model="avi.user_id"/>
+        <b-input type="text" v-model="party.user_id"/>
       </b-form-group>
     </b-form>
 
     <template #modal-footer="{ ok, cancel }">
       <b-button @click="handleClose(null) && cancel()">Cancel</b-button>
-      <b-button variant="primary" v-if="avi.id" @click="edit() && ok()">Save</b-button>
+      <b-button variant="primary" v-if="party.id" @click="edit() && ok()">Save</b-button>
       <b-button variant="success" v-else @click="create" :disabled="loading">Create</b-button>
     </template>
   </b-modal>
@@ -26,7 +26,7 @@
 import {mapActions, mapState} from 'vuex';
 
 export default {
-  name: 'AviEditDialog',
+  name: 'PartyEditDialog',
 
   data() {
     let initialState = {
@@ -39,19 +39,23 @@ export default {
       status: 'hidden',
       resolve: null,
       reject: null,
-      avi: initialState,
+      party: initialState,
       initialState: initialState,
       error: null
     }
   },
 
   computed: {
-    ...mapState('dialogs/avi', {
+    ...mapState('dialogs/party', {
       form: state => state
     }),
     visible: {
-      get() {return !!(this.status === 'create' || this.status === 'edit')},
-      set() {this.status = 'hidden'}
+      get() {
+        return !!(this.status === 'create' || this.status === 'edit')
+      },
+      set() {
+        this.status = 'hidden'
+      }
     }
   },
 
@@ -61,14 +65,12 @@ export default {
       deep: true,
       handler(value) {
         this.clearData();
-        this.avi.id = value.id;
+        this.party.id = value.id;
         this.status = value.status;
         this.resolve = value.resolve;
         this.reject = value.reject;
 
-        if (this.avi.id) {
-          this.load();
-        }
+        if (this.party.id) this.load();
       }
     }
   },
@@ -76,19 +78,19 @@ export default {
 
   methods: {
     ...mapActions({
-      close: 'dialogs/avi/clear',
+      close: 'dialogs/party/clear',
     }),
     clearData() {
-      this.avi = this.initialState;
+      this.party = this.initialState;
     },
     handleClose(done = null) {
       done ? done() : this.status = 'hidden';
     },
     load() {
       this.loading = true;
-      this.$api.avis.get(this.avi.id)
+      this.$api.parties.get(this.party.id)
         .then(response => {
-          this.avi = response.data;
+          this.party = response.data;
         }).catch(() => {
         this.reject();
         this.clearData();
@@ -100,7 +102,7 @@ export default {
     create() {
       this.error = null;
       this.loading = true;
-      this.$api.avis.create(this.avi)
+      this.$api.parties.create(this.party)
         .then(response => {
           this.resolve(response);
           this.handleClose();
@@ -112,7 +114,7 @@ export default {
     edit() {
       this.error = null;
       this.loading = true;
-      this.$api.avis.update(this.avi.id, this.avi)
+      this.$api.parties.update(this.party.id, this.party)
         .then(response => {
           this.resolve(response);
           this.handleClose();

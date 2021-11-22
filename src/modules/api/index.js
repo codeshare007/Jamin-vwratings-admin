@@ -12,7 +12,7 @@ import apiMessages from './methods/messages';
 // Avis
 import apiAvis from './methods/avis';
 import apiAvisClaims from './methods/avisClaims';
-import apiAvisRatings from './methods/ratings';
+import apiAvisRatings from './methods/avisRatings';
 import apiAvisComments from './methods/avisComments';
 
 // Parties
