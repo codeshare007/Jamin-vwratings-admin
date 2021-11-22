@@ -7,6 +7,7 @@ import apiProfile from './methods/profile';
 import apiDashboard from './methods/dashboard';
 import apiAvis from './methods/avis';
 import apiAvisComments from './methods/aviscomments';
+import apiAvisAttachments from './methods/avisAttachments';
 import apiParties from './methods/parties';
 import apiPartiesComments from './methods/partiesComments';
 import apiMessages from './methods/messages';
@@ -118,7 +119,8 @@ export default {
       parties: apiParties(this.apiInstance),
       partiesComments: apiPartiesComments(this.apiInstance),
       avisRatings: apiAvisRatings(this.apiInstance),
-      adminAdsCampaigns: apiAdsCampaigns(this.apiInstance)
+      adminAdsCampaigns: apiAdsCampaigns(this.apiInstance),
+      avisAttachments: apiAvisAttachments(this.apiInstance)
     };
 
     Vue.prototype.$api = repositories;

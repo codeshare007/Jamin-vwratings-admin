@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-comments">
+  <div class="adminComments">
     <div class="d-flex justify-content-between mb-3">
       <b-col class="p-0  d-flex justify-items-start">
         <b-pagination
@@ -56,7 +56,7 @@
 
       <template #head(select)>
         <div class="d-flex justify-content-center align-items-center h-100">
-          <b-checkbox type="checkbox" @change="selectAllRows"/>
+          <b-checkbox type="checkbox" @change="selectAllRows" />
         </div>
       </template>
 
@@ -77,6 +77,18 @@
 
       <template #cell(opinion)="row">
         {{ row.item.opinion | opinion }}
+      </template>
+
+      <template #cell(content)="row">
+        <div>
+          {{ row.item.content }}
+        </div>
+
+        <div v-for="(item, key) in row.item.attachments" :key="key">
+          <viewer>
+            <img class="adminComments__attachment" :src="item.path" :alt="item.filename" />
+          </viewer>
+        </div>
       </template>
 
       <template #cell(actions)="row">
@@ -263,10 +275,16 @@ export default {
 }
 </script>
 <style lang="scss">
-  .admin-comments {
-    background: #fff;
+  .adminComments {
     padding: 25px;
     border-radius: 5px;
     margin-bottom: 100px;
+
+    &__attachment {
+      cursor: pointer;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
   }
 </style>
