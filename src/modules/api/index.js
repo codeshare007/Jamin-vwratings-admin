@@ -5,15 +5,22 @@ import apiAuth from './methods/auth';
 import apiProfile from './methods/profile';
 
 import apiDashboard from './methods/dashboard';
-import apiAvis from './methods/avis';
-import apiAvisComments from './methods/aviscomments';
-import apiAvisAttachments from './methods/avisAttachments';
-import apiParties from './methods/parties';
-import apiPartiesComments from './methods/partiesComments';
-import apiMessages from './methods/messages';
-import apiAvisRatings from './methods/ratings';
 import apiUsers from './methods/users';
-import apiAdsCampaigns from './methods/adscampaigns';
+import apiAdsCampaigns from './methods/adsCampaigns';
+import apiMessages from './methods/messages';
+
+// Avis
+import apiAvis from './methods/avis';
+import apiAvisClaims from './methods/avisClaims';
+import apiAvisRatings from './methods/ratings';
+import apiAvisComments from './methods/avisComments';
+
+// Parties
+import apiParties from './methods/parties';
+import apiPartiesClaims from './methods/partiesClaims';
+import apiPartiesComments from './methods/partiesComments';
+import apiPartiesRatings from './methods/partiesRatings';
+
 
 export default {
   removeJWT() {
@@ -114,13 +121,19 @@ export default {
       adminDashboard: apiDashboard(this.apiInstance),
       messages: apiMessages(this.apiInstance),
       users: apiUsers(this.apiInstance),
+      adsCampaigns: apiAdsCampaigns(this.apiInstance),
+
+      // avis
       avis: apiAvis(this.apiInstance),
-      avisComments: apiAvisComments(this.apiInstance),
-      parties: apiParties(this.apiInstance),
-      partiesComments: apiPartiesComments(this.apiInstance),
+      avisClaims: apiAvisClaims(this.apiInstance),
       avisRatings: apiAvisRatings(this.apiInstance),
-      adminAdsCampaigns: apiAdsCampaigns(this.apiInstance),
-      avisAttachments: apiAvisAttachments(this.apiInstance)
+      avisComments: apiAvisComments(this.apiInstance),
+
+      // parties
+      parties: apiParties(this.apiInstance),
+      partiesClaims: apiPartiesClaims(this.apiInstance),
+      partiesComments: apiPartiesComments(this.apiInstance),
+      partiesRatings: apiPartiesRatings(this.apiInstance)
     };
 
     Vue.prototype.$api = repositories;

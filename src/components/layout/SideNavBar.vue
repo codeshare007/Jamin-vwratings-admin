@@ -18,6 +18,9 @@
           <b-nav-item :to="{ name: 'cabinet.avis' }">
             <b-icon-person-fill /> <span class="ml-2">Avis</span>
           </b-nav-item>
+          <b-nav-item :to="{ name: 'cabinet.avis.claims'}">
+            <b-icon-plus /> <span class="ml-2">Avis Claims</span>
+          </b-nav-item>
           <b-nav-item :to="{ name: 'cabinet.avis.comments' }">
             <b-icon-chat-text /> <span class="ml-2">Avis Comments</span>
           </b-nav-item>

@@ -30,6 +30,12 @@ export default [
     meta: {title: 'Ads Campagins'}
   },
   {
+    name: 'cabinet.avis.claims',
+    path: 'avis-claims',
+    component: () => import('@/views/avis/Claims'),
+    meta: {title: 'Avis Claims'}
+  },
+  {
     name: 'cabinet.avis.comments',
     path: 'avis-comments',
     component: () => import('@/views/avis/Comments'),
@@ -59,4 +65,10 @@ export default [
     component: () => import('@/views/parties/Ratings'),
     meta: {title: 'Parties Ratings'}
   },
+  {
+    name: 'cabinet.parties.claims',
+    path: 'parties-claims',
+    component: () => import('@/views/parties/Claims'),
+    meta: {title: 'Parties Claims'}
+  }
 ]

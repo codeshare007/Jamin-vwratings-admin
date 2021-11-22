@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-ads">
+  <div class="adminAdsCampaigns">
     <div class="d-flex justify-content-between mb-3">
       <b-col class="p-0  d-flex justify-items-start">
         <b-pagination
@@ -138,7 +138,7 @@ export default {
     },
 
     fetchAdsCampaigns() {
-      this.$api.adminAdsCampaigns.fetch(this.currentPage, this.params).then(response => {
+      this.$api.adsCampaigns.fetch(this.currentPage, this.params).then(response => {
         this.campaigns = response.data.data.map(item => {
           item.selected = false;
           return item;
@@ -150,7 +150,7 @@ export default {
     },
 
     remove() {
-      this.$api.adminAdsCampaigns.delete(this.deletableId).then(response => {
+      this.$api.adsCampaigns.delete(this.deletableId).then(response => {
         if (response.data.status === 'success') {
           this.fetchAdsCampaigns();
           this.deletableId = null;
@@ -159,7 +159,7 @@ export default {
     },
 
     bulkDelete() {
-      this.$api.adminAdsCampaigns.bulkDelete(this.ids).then(() => {
+      this.$api.adsCampaigns.bulkDelete(this.ids).then(() => {
         this.ids = [];
         this.fetchAdsCampaigns();
       });
@@ -178,7 +178,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.admin-ads {
+.adminAdsCampaigns {
   padding: 25px;
   border-radius: 5px;
   margin-bottom: 100px;

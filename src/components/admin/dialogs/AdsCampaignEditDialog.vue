@@ -10,12 +10,12 @@
       <b-row>
         <b-col>
           <b-form-group label="Name">
-            <b-form-input v-model="campaign.name" />
+            <b-form-input v-model="campaign.name"/>
           </b-form-group>
         </b-col>
         <b-col>
           <b-form-group label="Timer">
-            <b-form-input v-model="campaign.timer" />
+            <b-form-input v-model="campaign.timer"/>
           </b-form-group>
         </b-col>
         <b-col>
@@ -27,11 +27,11 @@
       </b-row>
 
       <b-form-group label="Description">
-        <b-form-textarea v-model="campaign.description" />
+        <b-form-textarea v-model="campaign.description"/>
       </b-form-group>
 
       <b-form-group label="Content">
-        <b-form-textarea v-model="campaign.content" />
+        <b-form-textarea v-model="campaign.content"/>
       </b-form-group>
     </b-form>
 
@@ -82,7 +82,6 @@ export default {
     }
   },
 
-
   watch: {
     form: {
       deep: true,
@@ -113,7 +112,7 @@ export default {
     },
     load() {
       this.loading = true;
-      this.$api.adminAdsCampaigns.get(this.campaign.id).then(response => {
+      this.$api.adsCampaigns.get(this.campaign.id).then(response => {
         this.campaign = response.data;
       }).catch(() => {
         this.reject();
@@ -126,7 +125,7 @@ export default {
     create() {
       this.error = null;
       this.loading = true;
-      this.$api.adminAdsCampaigns.create(this.campaign).then(response => {
+      this.$api.adsCampaigns.create(this.campaign).then(response => {
         this.resolve(response);
         this.handleClose();
       }).catch(() => {
@@ -137,7 +136,7 @@ export default {
     edit() {
       this.error = null;
       this.loading = true;
-      this.$api.adminAdsCampaigns.update(this.campaign.id, this.campaign).then(response => {
+      this.$api.adsCampaigns.update(this.campaign.id, this.campaign).then(response => {
         this.resolve(response);
         this.handleClose();
       }).catch(() => {
