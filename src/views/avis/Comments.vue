@@ -213,11 +213,13 @@ export default {
       })
     },
 
-
     fetchComments() {
       this.$api.avisComments.fetch(this.currentPage, this.params).then(response => {
         this.comments = response.data.data.map(item => {
           item.selected = false;
+          if (item.claimed_until) {
+            item._rowVariant = 'secondary'
+          }
           return item;
         });
         this.currentPage = response.data.current_page;
