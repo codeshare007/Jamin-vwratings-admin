@@ -64,7 +64,7 @@
 
         <div v-for="(item, key) in row.item.attachments" :key="key">
           <viewer>
-            <img class="adminComments__attachment" :src="item.path" :alt="item.filename"/>
+            <img class="adminParties__attachment" :src="item.path" :alt="item.filename"/>
           </viewer>
         </div>
       </template>
