@@ -258,8 +258,8 @@ export default {
 
   &__attachment {
     cursor: pointer;
-    width: 150px;
-    height: 150px;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
   }
 }
