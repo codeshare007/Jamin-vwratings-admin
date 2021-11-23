@@ -194,7 +194,7 @@ export default {
           this.comments = response.data.data.map(item => {
             item.selected = false;
             if (item.claimed_until) {
-              item._rowVariant = 'secondary'
+              item._rowVariant = 'info'
             }
             return item;
           });
