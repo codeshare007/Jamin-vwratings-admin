@@ -8,22 +8,39 @@
           @change="handlePageChange"
           :total-rows="total"
         />
-        <div class="ml-3" v-if="ids.length > 0">
-          <b-button
-            variant="danger"
-            @click="$refs['bulkModal'].show()"
-          >Bulk Delete
-          </b-button>
-        </div>
       </b-col>
       <b-col class="p-0 d-flex justify-content-end align-items-center">
-        <b-form-input class="mr-2 search-link" v-model="search" placeholder="Search..."/>
         <b-button variant="success" @click="create" class="mr-2">Create</b-button>
         <b-button variant="primary" @click="fetchUsers()">
           <b-icon-arrow-clockwise/>
         </b-button>
       </b-col>
     </div>
+    <b-row>
+      <b-col cols="4" class="d-flex">
+        <div class="mt-1 ml-3 mr-3" style="width: 10%">
+          <b-button
+            v-if="ids.length > 0"
+            variant="danger"
+            size="sm"
+            @click="$refs['bulkModal'].show()"
+          ><b-icon-trash />
+          </b-button>
+        </div>
+        <b-form-group class="w-25 mr-2">
+          <b-form-input placeholder="id" v-model="search_id" />
+        </b-form-group>
+        <b-form-group class="w-100">
+          <b-form-input placeholder="username" v-model="search_username" />
+        </b-form-group>
+      </b-col>
+      <b-col cols="3">
+        <b-form-group>
+          <b-form-input placeholder="email" v-model="search_email" />
+        </b-form-group>
+      </b-col>
+    </b-row>
+
     <b-table
       ref="userTable"
       no-local-sorting
@@ -72,11 +89,8 @@
         </div>
       </template>
     </b-table>
-    <b-pagination
-      v-model="currentPage"
-      @change="handlePageChange"
-      :total-rows="total"
-    />
+
+    <b-pagination v-model="currentPage" @change="handlePageChange" :total-rows="total" />
 
     <b-modal ref="bulkModal" title="Delete Users" @ok="bulkDelete" ok-variant="danger" ok-title="Delete">
       Are you sure that you want to delete selected users?
@@ -99,11 +113,13 @@ export default {
       loading: false,
       selectAll: false,
       sortBy: 'created_at',
-      search: '',
       currentPage: 1,
       deletableId: null,
       total: 1,
       isDesc: false,
+      search_id: '',
+      search_username: '',
+      search_email: '',
       params: {
         search: '',
         sortBy: 'created_at',
@@ -148,10 +164,36 @@ export default {
       this.params.sort = (data === true ? 'desc' : 'asc')
       this.fetchUsers();
     },
-    search(data) {
-      this.params.search = data;
+    search_id(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'id';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
       this.fetchUsers()
-    }
+    },
+    search_username(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'username';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchUsers()
+    },
+    search_email(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'email';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchUsers()
+    },
   },
 
   mounted() {
