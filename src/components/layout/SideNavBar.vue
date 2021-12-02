@@ -108,7 +108,7 @@ export default {
   .router-link-exact-active,
   .router-link-active {
     //background: #00acac;
-    color: lightgrey;
+    color: #18f90a;
   }
 
   a {
