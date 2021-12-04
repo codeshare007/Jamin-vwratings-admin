@@ -1,12 +1,28 @@
 <template>
   <div class="adminDashboard">
-    <h1>Welcome back, {{ profile.username }}!</h1>
     <b-row v-if="!loading">
       <b-col>
         <b-card class="mt-5" header="Users">
           <h1>{{ information.users }}</h1>
         </b-card>
       </b-col>
+      <b-col>
+        <b-card class="mt-5" header="Messages">
+          <h1>{{ information.messages }}</h1>
+        </b-card>
+      </b-col>	  
+    </b-row>
+   <b-row v-if="!loading">
+      <b-col>
+        <b-card class="mt-5" header="Players">
+          <h1>{{ information.avis }}</h1>
+        </b-card>
+      </b-col>
+      <b-col>
+        <b-card class="mt-5" header="Claimed">
+          <h1>{{ information.claims }}</h1>
+        </b-card>
+      </b-col>		  
       <b-col>
         <b-card class="mt-5" header="Comments">
           <h1>{{ information.comments }}</h1>
@@ -16,12 +32,7 @@
         <b-card class="mt-5" header="Ratings">
           <h1>{{ information.ratings }}</h1>
         </b-card>
-      </b-col>
-      <b-col>
-        <b-card class="mt-5" header="Avis">
-          <h1>{{ information.avis }}</h1>
-        </b-card>
-      </b-col>
+      </b-col>  
     </b-row>
 
     <b-row>
@@ -86,7 +97,6 @@ export default {
 </script>
 <style lang="scss">
 .adminDashboard {
-  padding: 25px;
   border-radius: 5px;
   margin-bottom: 100px;
 
