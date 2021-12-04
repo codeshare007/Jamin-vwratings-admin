@@ -2,34 +2,56 @@
   <div class="adminDashboard">
     <b-row v-if="!loading">
       <b-col>
-        <b-card class="mt-5" header="Users">
+        <b-card class="mt-2" header="Members">
           <h1>{{ information.users }}</h1>
         </b-card>
       </b-col>
       <b-col>
-        <b-card class="mt-5" header="Messages">
+        <b-card class="mt-2" header="Parties">
+          <h1>{{ information.parties }}</h1>
+        </b-card>
+      </b-col>
+      <b-col>
+        <b-card class="mt-2" header="Players">
+          <h1>{{ information.avis }}</h1>
+        </b-card>
+      </b-col>	  
+      <b-col>
+        <b-card class="mt-2" header="Messages">
           <h1>{{ information.messages }}</h1>
         </b-card>
       </b-col>	  
     </b-row>
    <b-row v-if="!loading">
       <b-col>
-        <b-card class="mt-5" header="Players">
-          <h1>{{ information.avis }}</h1>
+        <b-card class="mt-2" header="Parties Claimed">
+          <h1>{{ information.pclaims }}</h1>
+        </b-card>
+      </b-col>		  
+      <b-col>
+        <b-card class="mt-2" header="Parties Comments">
+          <h1>{{ information.pcomments }}</h1>
         </b-card>
       </b-col>
       <b-col>
-        <b-card class="mt-5" header="Claimed">
+        <b-card class="mt-2" header="Parties Ratings">
+          <h1>{{ information.pratings }}</h1>
+        </b-card>
+      </b-col>  
+    </b-row>	
+   <b-row v-if="!loading">
+      <b-col>
+        <b-card class="mt-2" header="Players Claimed">
           <h1>{{ information.claims }}</h1>
         </b-card>
       </b-col>		  
       <b-col>
-        <b-card class="mt-5" header="Comments">
+        <b-card class="mt-2" header="Players Comments">
           <h1>{{ information.comments }}</h1>
         </b-card>
       </b-col>
       <b-col>
-        <b-card class="mt-5" header="Ratings">
+        <b-card class="mt-2" header="Players Ratings">
           <h1>{{ information.ratings }}</h1>
         </b-card>
       </b-col>  
@@ -107,5 +129,10 @@ export default {
   .information {
     font-size: 24px;
   }
+  
+  .card-header {
+    padding: 0;
+    background-color: rgb(95 167 55 / 47%);
+}
 }
 </style>
