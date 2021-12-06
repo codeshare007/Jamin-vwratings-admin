@@ -46,11 +46,11 @@
         <span>{{ data.label }}</span>
       </template>
 
-      <template #head(name)="data">
+      <template #head(name)>
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_name" placeholder="avi name" />
+          <b-form-input v-model="search_name" placeholder="name" />
         </b-form-group>
-        <span>{{ data.label }}</span>
+        <span>avi/party name</span>
       </template>
 
       <template #head(actions)="data">
@@ -138,7 +138,7 @@ export default {
         {key: 'select', label: '', sortable: false},
         {key: 'index', label: '#', sortable: true},
         {key: 'username', label: 'user', sortable: true},
-        {key: 'name', label: 'avi', sortable: true},
+        {key: 'name', sortable: true},
         {key: 'rating'},
         {
           key: 'created_at', formatter: createdAt => {
@@ -181,10 +181,10 @@ export default {
   },
 
   methods: {
-    ...mapActions({editAviRating: 'dialogs/entityRating/edit'}),
+    ...mapActions({editEntityRating: 'dialogs/entityRating/edit'}),
 
     edit(id) {
-      this.editAviRating({id: id, method: this.method}).then(() => this.fetchRatings())
+      this.editEntityRating({id: id, method: this.method}).then(() => this.fetchRatings())
     },
 
     fetchRatings() {

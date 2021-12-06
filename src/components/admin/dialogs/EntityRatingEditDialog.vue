@@ -6,8 +6,12 @@
     @hide="handleClose(null)">
 
     <b-form>
-      <b-form-group label="Avis Id">
+      <b-form-group label="Avis Id" v-if="method === 'avisRatings'">
         <b-form-input v-model="entityRating.avis_id" />
+      </b-form-group>
+
+      <b-form-group label="Party Id" v-if="method === 'partiesRatings'">
+        <b-form-input v-model="entityRating.party_id" />
       </b-form-group>
 
       <b-form-group label="User Id">
@@ -120,7 +124,7 @@ export default {
     edit() {
       this.error = null;
       this.loading = true;
-      this.$api.avisRatings
+      this.$api[this.method]
         .update(this.entityRating.id, this.entityRating)
         .then(response => {
           this.resolve(response);
