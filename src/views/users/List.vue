@@ -44,6 +44,12 @@
         </div>
       </template>
 
+      <template #table-busy>
+        <div class="text-center">
+          <b-spinner class="align-middle"></b-spinner>
+        </div>
+      </template>
+
       <template #head(id)="data">
         <b-form-group class="mb-3">
           <b-form-input v-model="search_id"/>

@@ -47,6 +47,10 @@
         </div>
       </template>
 
+      <template #cell(claimed_until)="row">
+        {{ row.item.claimed_until.until }}
+      </template>
+
       <template #cell(index)="row">
         {{ row.index + 1 }}
       </template>

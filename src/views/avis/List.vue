@@ -76,6 +76,12 @@
         </div>
       </template>
 
+      <template #table-busy>
+        <div class="text-center">
+          <b-spinner class="align-middle"></b-spinner>
+        </div>
+      </template>
+
       <template #cell(index)="data">
         {{ data.index + 1 }}
       </template>

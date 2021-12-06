@@ -10,34 +10,27 @@
         />
         <div class="ml-3" v-if="ids.length > 0">
           <b-button
-            class="mr-4"
-            variant="danger"
-            @click="$refs['bulkModal'].show()"
-          >Bulk Delete
-          </b-button>
-          <b-button
             variant="success"
+            class="mr-2"
+            v-text="`Set Positive`"
             @click="bulkOpinion(1)"
-          >Set Positive
-          </b-button>
+          />
           <b-button
             variant="danger"
+            class="mr-2"
+            v-text="`Set Negative`"
             @click="bulkOpinion(2)"
-          >Set Negative
-          </b-button>
+          />
           <b-button
             variant="dark"
+            class="mr-2"
+            v-text="`Remove Opinion`"
             @click="bulkOpinion(0)"
-          >Remove Opinion
-          </b-button>
+          />
         </div>
       </b-col>
       <b-col cols="4" class="p-0 d-flex justify-content-end align-items-center">
-        <b-form-input
-          class="mr-2 search-link"
-          v-model="search"
-          placeholder="Search..." />
-        <b-button variant="primary" @click="fetchComments()">
+        <b-button variant="primary" @click="fetchComments">
           <b-icon-arrow-clockwise/>
         </b-button>
       </b-col>
@@ -53,7 +46,6 @@
       :items="comments"
       :fields="commentsFields"
     >
-
       <template #head(select)>
         <div class="d-flex justify-content-center align-items-center h-100">
           <b-checkbox type="checkbox" @change="selectAllRows" />
@@ -71,8 +63,46 @@
         </div>
       </template>
 
+      <template #head(id)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_id"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(username)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_username"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(name)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_name"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(content)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_content"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #table-busy>
+        <div class="text-center">
+          <b-spinner class="align-middle"></b-spinner>
+        </div>
+      </template>
+
       <template #cell(index)="row">
         {{ row.index + 1 }}
+      </template>
+
+      <template #cell(name)="row">
+        <a :href="'/avis/' + row.item.avis_id" target="_blank">{{ row.item.name }}</a>
       </template>
 
       <template #cell(opinion)="row">
@@ -95,6 +125,7 @@
         <b-button
           variant="primary"
           size="sm"
+          class="mr-2"
           @click="edit(row.item.id)"
         >
           <b-icon-pencil />
@@ -153,12 +184,16 @@ export default {
         sort: 'desc',
         page: 1
       },
+      search_id: '',
+      search_username: '',
+      search_name: '',
+      search_content: '',
       commentsFields: [
         {key: 'select', label: '', sortable: false},
         {key: 'id', label: '#', sortable: true},
         {key: 'username', label: 'user', sortable: true},
         {key: 'name', label: 'avi', sortable: true},
-        {key: 'content'},
+        {key: 'content', label: 'content'},
         {key: 'opinion', sortable: true},
         {key: 'actions', thStyle: 'min-width: 120px', sortable: false}
       ]
@@ -185,8 +220,44 @@ export default {
       this.params.sort = (data === true ? 'desc' : 'asc')
       this.fetchComments();
     },
-    search(data) {
-      this.params.search = data;
+    search_id(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'id';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchComments()
+    },
+    search_username(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'username';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchComments()
+    },
+    search_name(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'name';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchComments()
+    },
+    search_content(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'content';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
       this.fetchComments()
     }
   },
@@ -287,6 +358,11 @@ export default {
       width: 50px;
       height: 50px;
       object-fit: cover;
+    }
+
+    .table.b-table > thead > tr > [aria-sort]:not(.b-table-sort-icon-left),
+    .table.b-table > tfoot > tr > [aria-sort]:not(.b-table-sort-icon-left) {
+      background-position: right 73px;
     }
   }
 </style>
