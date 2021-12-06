@@ -1,22 +1,20 @@
 <template>
   <b-modal
-    :title="avi.id ? 'Edit Avi' : 'Create Avi'"
+    :title="entity.id ? `Edit ${this.entities}` : `Create ${this.entities}`"
     :visible.sync="visible"
     @submit.prevent.native=""
     @hide="handleClose(null)">
-
     <b-form>
-      <b-form-group label="Avi name">
-        <b-input type="text" v-model="avi.name"/>
+      <b-form-group :label="`${this.entities} name`">
+        <b-input type="text" v-model="entity.name"/>
       </b-form-group>
-      <b-form-group label="User Id">
-        <b-input type="text" v-model="avi.user_id"/>
+      <b-form-group label="user Id">
+        <b-input type="text" v-model="entity.user_id"/>
       </b-form-group>
     </b-form>
-
     <template #modal-footer="{ ok, cancel }">
       <b-button @click="handleClose(null) && cancel()">Cancel</b-button>
-      <b-button variant="primary" v-if="avi.id" @click="edit() && ok()">Save</b-button>
+      <b-button variant="primary" v-if="entity.id" @click="edit() && ok()">Save</b-button>
       <b-button variant="success" v-else @click="create" :disabled="loading">Create</b-button>
     </template>
   </b-modal>
@@ -26,47 +24,52 @@
 import {mapActions, mapState} from 'vuex';
 
 export default {
-  name: 'AviEditDialog',
+  name: 'entityEditDialog',
 
   data() {
     let initialState = {
       id: null,
       user_id: null,
-      name: null,
+      name: null
     };
     return {
       loading: false,
       status: 'hidden',
       resolve: null,
       reject: null,
-      avi: initialState,
+      entities: null,
+      entity: initialState,
       initialState: initialState,
       error: null
     }
   },
 
   computed: {
-    ...mapState('dialogs/avi', {
+    ...mapState('dialogs/entity', {
       form: state => state
     }),
     visible: {
-      get() {return !!(this.status === 'create' || this.status === 'edit')},
-      set() {this.status = 'hidden'}
+      get() {
+        return !!(this.status === 'create' || this.status === 'edit')
+      },
+      set() {
+        this.status = 'hidden'
+      }
     }
   },
-
 
   watch: {
     form: {
       deep: true,
       handler(value) {
         this.clearData();
-        this.avi.id = value.id;
+        this.entity.id = value.id;
         this.status = value.status;
+        this.entities = value.entities;
         this.resolve = value.resolve;
         this.reject = value.reject;
 
-        if (this.avi.id) {
+        if (this.entity.id) {
           this.load();
         }
       }
@@ -76,19 +79,19 @@ export default {
 
   methods: {
     ...mapActions({
-      close: 'dialogs/avi/clear',
+      close: 'dialogs/entity/clear',
     }),
     clearData() {
-      this.avi = this.initialState;
+      this.entity = this.initialState;
     },
     handleClose(done = null) {
       done ? done() : this.status = 'hidden';
     },
     load() {
       this.loading = true;
-      this.$api.avis.get(this.avi.id)
+      this.$api[this.entities].get(this.entity.id)
         .then(response => {
-          this.avi = response.data;
+          this.entity = response.data;
         }).catch(() => {
         this.reject();
         this.clearData();
@@ -100,7 +103,7 @@ export default {
     create() {
       this.error = null;
       this.loading = true;
-      this.$api.avis.create(this.avi)
+      this.$api[this.entities].create(this.entity)
         .then(response => {
           this.resolve(response);
           this.handleClose();
@@ -112,7 +115,7 @@ export default {
     edit() {
       this.error = null;
       this.loading = true;
-      this.$api.avis.update(this.avi.id, this.avi)
+      this.$api[this.entities].update(this.entity.id, this.entity)
         .then(response => {
           this.resolve(response);
           this.handleClose();

@@ -11,7 +11,7 @@
       </b-col>
       <b-col class="p-0 d-flex justify-content-end align-items-center">
         <b-button variant="success" @click="create" class="mr-2">Create</b-button>
-        <b-button variant="primary" @click="fetchUsers()">
+        <b-button variant="primary" @click="fetchUsers">
           <b-icon-arrow-clockwise/>
         </b-button>
       </b-col>
@@ -46,27 +46,27 @@
 
       <template #table-busy>
         <div class="text-center">
-          <b-spinner class="align-middle"></b-spinner>
+          <b-spinner class="align-middle" />
         </div>
       </template>
 
       <template #head(id)="data">
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_id"/>
+          <b-form-input v-model="search_id" placeholder="id" />
         </b-form-group>
         <span>{{ data.label }}</span>
       </template>
 
       <template #head(username)="data">
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_username"/>
+          <b-form-input v-model="search_username" placeholder="username" />
         </b-form-group>
         <span>{{ data.label }}</span>
       </template>
 
       <template #head(email)="data">
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_email"/>
+          <b-form-input v-model="search_email" placeholder="email" />
         </b-form-group>
         <span>{{ data.label }}</span>
       </template>
@@ -218,7 +218,6 @@ export default {
   },
 
   methods: {
-
     ...mapActions({
       createUser: 'dialogs/user/create',
       editUser: 'dialogs/user/edit',

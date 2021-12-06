@@ -126,8 +126,7 @@
           variant="primary"
           size="sm"
           class="mr-2"
-          @click="edit(row.item.id)"
-        >
+          @click="edit(row.item.id)">
           <b-icon-pencil/>
         </b-button>
         <b-button
@@ -138,6 +137,7 @@
         </b-button>
       </template>
     </b-table>
+
     <b-pagination
       v-model="currentPage"
       @change="handlePageChange"
@@ -180,6 +180,7 @@ export default {
       isDesc: false,
       params: {
         search: '',
+        fields: [],
         sortBy: 'created_at',
         sort: 'desc',
         page: 1
@@ -204,7 +205,6 @@ export default {
     opinion(data) {
       if (data === 1) return 'positive';
       if (data === 2) return 'negative';
-
       return '—'
     }
   },
@@ -222,41 +222,33 @@ export default {
     },
     search_id(value) {
       if (value.length > 1) {
-        this.params.search = value;
-        this.params.field = 'avis_comments.id';
+        this.params.id = value;
       } else {
-        delete this.params.search;
-        delete this.params.field;
+        this.$delete(this.params, 'id');
       }
       this.fetchComments()
     },
     search_username(value) {
       if (value.length > 1) {
-        this.params.search = value;
-        this.params.field = 'username';
+        this.params.username = value;
       } else {
-        delete this.params.search;
-        delete this.params.field;
+        this.$delete(this.params, 'username');
       }
       this.fetchComments()
     },
     search_name(value) {
       if (value.length > 1) {
-        this.params.search = value;
-        this.params.field = 'name';
+        this.params.name = value;
       } else {
-        delete this.params.search;
-        delete this.params.field;
+        this.$delete(this.params, 'name');
       }
       this.fetchComments()
     },
     search_content(value) {
       if (value.length > 1) {
-        this.params.search = value;
-        this.params.field = 'content';
+        this.params.content = value;
       } else {
-        delete this.params.search;
-        delete this.params.field;
+        this.$delete(this.params, 'content');
       }
       this.fetchComments()
     }

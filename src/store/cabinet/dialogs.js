@@ -1,10 +1,9 @@
 import UserEditDialog from './dialogs/user';
-import AviEditDialog from './dialogs/avi';
+import EntityEditDialog from './dialogs/entity';
 import AviClaimEditDialog from './dialogs/aviClaim';
 import AviCommentEditDialog from './dialogs/aviComment';
 import AviRatingEditDialog from './dialogs/aviRating';
 import AdsCampaignEditDialog from './dialogs/campaign';
-import PartyEditDialog from './dialogs/party';
 import PartyCommentEditDialog from './dialogs/partyComment';
 import PartyClaimEditDialog from './dialogs/partyClaim';
 
@@ -13,11 +12,10 @@ export default {
   modules: {
     user: UserEditDialog,
     campaign: AdsCampaignEditDialog,
-    avi: AviEditDialog,
+    entity: EntityEditDialog,
     aviClaim: AviClaimEditDialog,
     aviComment: AviCommentEditDialog,
     aviRating: AviRatingEditDialog,
-    party: PartyEditDialog,
     partyClaim: PartyClaimEditDialog,
     partyComment: PartyCommentEditDialog,
   },

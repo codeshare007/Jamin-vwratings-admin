@@ -14,21 +14,23 @@ export default {
     clear({commit}) {
       commit('clear');
     },
-    create({commit}) {
+    create({commit}, entities) {
       return new Promise((resolve, reject) => {
         commit('set', {
           status: 'create',
           id: null,
+          entities: entities,
           resolve,
           reject
         });
       });
     },
-    edit({commit}, id) {
+    edit({commit}, entities, id) {
       return new Promise((resolve, reject) => {
         commit('set', {
           status: 'edit',
           id: id,
+          entities: entities,
           resolve,
           reject
         });
@@ -42,9 +44,10 @@ export default {
       state.resolve = initial.resolve;
       state.reject = initial.reject;
     },
-    set(state, {status, id, resolve, reject}) {
+    set(state, {status, id, entities, resolve, reject}) {
       state.status = status;
       state.id = id;
+      state.entities = entities;
       state.resolve = resolve;
       state.reject = reject;
     },

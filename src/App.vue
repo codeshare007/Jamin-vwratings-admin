@@ -2,12 +2,11 @@
   <div class="app">
     <div v-if="isAdmin">
       <UserEditDialog />
-      <AviEditDialog />
+      <EntityEditDialog />
       <AviCommentEditDialog />
       <AdsCampaignEditDialog />
       <AviClaimEditDialog />
       <AviRatingEditDialog />
-      <PartyEditDialog />
       <PartyCommentEditDialog />
       <PartyClaimEditDialog />
     </div>
@@ -19,12 +18,11 @@
 import {mapState} from "vuex";
 
 import UserEditDialog from "./components/admin/dialogs/UserEditDialog";
-import AviEditDialog from "./components/admin/dialogs/AviEditDialog";
+import EntityEditDialog from './components/admin/dialogs/EntityEditDialog';
 import AviCommentEditDialog from "./components/admin/dialogs/AviCommentEditDialog";
 import AdsCampaignEditDialog from "./components/admin/dialogs/AdsCampaignEditDialog";
 import AviRatingEditDialog from "./components/admin/dialogs/AviRatingEditDialog";
 import AviClaimEditDialog from './components/admin/dialogs/AviClaimEditDialog'
-import PartyEditDialog from "./components/admin/dialogs/PartyEditDialog";
 import PartyCommentEditDialog from "./components/admin/dialogs/PartyCommentEditDialog";
 import PartyClaimEditDialog from './components/admin/dialogs/PartyClaimEditDialog'
 
@@ -33,13 +31,12 @@ export default {
 
   components: {
     UserEditDialog,
-    AviEditDialog,
+    EntityEditDialog,
     AviCommentEditDialog,
     AdsCampaignEditDialog,
     AviClaimEditDialog,
     AviRatingEditDialog,
     PartyCommentEditDialog,
-    PartyEditDialog,
     PartyClaimEditDialog
   },
 
