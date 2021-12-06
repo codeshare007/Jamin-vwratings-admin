@@ -47,6 +47,7 @@ export default {
       roles: [
         {value: 1, text: 'Administrator'},
         {value: 2, text: 'User'},
+        {value: 3, text: 'Limited User'}
       ],
       resolve: null,
       reject: null,
