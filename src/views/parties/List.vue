@@ -1,5 +1,5 @@
 <template>
-  <div class="partiesPage">
+  <div class="partiesAdmin">
     <div class="d-flex justify-content-between mb-3">
       <b-col class="p-0  d-flex justify-items-start">
         <b-pagination
@@ -9,41 +9,13 @@
           :total-rows="total"
         />
       </b-col>
-    </div>
-
-    <b-row class="justify-content-between">
-      <b-col cols="2" class="d-flex p-0">
-        <div class="mt-1 ml-4 pl-4" style="width: 13%">
-          <b-button
-            v-if="ids.length > 0"
-            variant="danger"
-            size="sm"
-            @click="$refs['bulkModal'].show()"
-          ><b-icon-trash />
-          </b-button>
-        </div>
-        <b-form-group class="ml-5 w-75 pr-5">
-          <b-form-input placeholder="id" v-model="search_id" />
-        </b-form-group>
-      </b-col>
-      <b-col cols="3" class="p-0">
-        <b-form-group class="w-75">
-          <b-form-input placeholder="username" v-model="search_username" />
-        </b-form-group>
-      </b-col>
-      <b-col cols="3">
-        <b-form-group class="w-75">
-          <b-form-input placeholder="name" v-model="search_name" />
-        </b-form-group>
-      </b-col>
-      <b-col cols="1" />
       <b-col cols="3" class="p-0 d-flex justify-content-end align-items-center">
         <b-button variant="success" @click="create" class="mr-2">Create</b-button>
         <b-button variant="primary" @click="fetchParties">
           <b-icon-arrow-clockwise/>
         </b-button>
       </b-col>
-    </b-row>
+    </div>
 
     <b-table
       ref="partiesTable"
@@ -57,9 +29,41 @@
     >
 
       <template #head(select)>
-        <div class="d-flex justify-content-center align-items-center h-100">
-          <b-checkbox type="checkbox" @change="selectAllRows"/>
+        <div class="d-flex flex-column align-items-center">
+          <b-button
+            v-if="ids.length > 0"
+            variant="danger"
+            size="sm"
+            class="mb-3"
+            @click="$refs['bulkModal'].show()"
+          >
+            <b-icon-trash/>
+          </b-button>
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <b-checkbox type="checkbox" @change="selectAllRows"/>
+          </div>
         </div>
+      </template>
+
+      <template #head(id)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_id"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(username)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_username"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(name)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_name"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
       </template>
 
       <template #cell(select)="row">
@@ -269,9 +273,14 @@ export default {
 }
 </script>
 <style lang="scss">
-.partiesPage {
+.partiesAdmin {
   padding: 25px;
   border-radius: 5px;
   margin-bottom: 100px;
+
+  .table.b-table > thead > tr > [aria-sort]:not(.b-table-sort-icon-left),
+  .table.b-table > tfoot > tr > [aria-sort]:not(.b-table-sort-icon-left) {
+    background-position: right 73px;
+  }
 }
 </style>
