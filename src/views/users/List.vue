@@ -135,6 +135,7 @@ export default {
             return item ? item : '—'
           }, sortable: true
         },
+        {key: 'ip_address', label: 'IP address', sortable: true, thStyle: 'width: 150px'},
         {key: 'role', sortable: true},
         {
           key: 'created_at', thStyle: 'white-space: nowrap', sortable: true, formatter: createdAt => {
