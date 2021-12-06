@@ -46,21 +46,21 @@
 
       <template #head(id)="data">
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_id"/>
+          <b-form-input v-model="search_id" placeholder="id" />
         </b-form-group>
         <span>{{ data.label }}</span>
       </template>
 
       <template #head(username)="data">
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_username"/>
+          <b-form-input v-model="search_username" placeholder="username" />
         </b-form-group>
         <span>{{ data.label }}</span>
       </template>
 
       <template #head(name)="data">
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_name"/>
+          <b-form-input v-model="search_name" placeholder="name" />
         </b-form-group>
         <span>{{ data.label }}</span>
       </template>

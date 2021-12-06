@@ -48,7 +48,7 @@
     >
       <template #head(select)>
         <div class="d-flex justify-content-center align-items-center h-100">
-          <b-checkbox type="checkbox" @change="selectAllRows" />
+          <b-checkbox type="checkbox" @change="selectAllRows"/>
         </div>
       </template>
 
@@ -65,28 +65,28 @@
 
       <template #head(id)="data">
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_id"/>
+          <b-form-input v-model="search_id" placeholder="id"/>
         </b-form-group>
         <span>{{ data.label }}</span>
       </template>
 
       <template #head(username)="data">
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_username"/>
+          <b-form-input v-model="search_username" placeholder="username"/>
         </b-form-group>
         <span>{{ data.label }}</span>
       </template>
 
       <template #head(name)="data">
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_name"/>
+          <b-form-input v-model="search_name" placeholder="name"/>
         </b-form-group>
         <span>{{ data.label }}</span>
       </template>
 
       <template #head(content)="data">
         <b-form-group class="mb-3">
-          <b-form-input v-model="search_content"/>
+          <b-form-input v-model="search_content" placeholder="comment"/>
         </b-form-group>
         <span>{{ data.label }}</span>
       </template>
@@ -116,7 +116,7 @@
 
         <div v-for="(item, key) in row.item.attachments" :key="key">
           <viewer>
-            <img class="adminComments__attachment" :src="item.path" :alt="item.filename" />
+            <img class="adminComments__attachment" :src="item.path" :alt="item.filename"/>
           </viewer>
         </div>
       </template>
@@ -128,13 +128,13 @@
           class="mr-2"
           @click="edit(row.item.id)"
         >
-          <b-icon-pencil />
+          <b-icon-pencil/>
         </b-button>
         <b-button
           variant="danger"
           size="sm"
           @click="showDeleteModal(row.item.id)">
-          <b-icon-trash />
+          <b-icon-trash/>
         </b-button>
       </template>
     </b-table>
@@ -164,7 +164,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import {mapActions} from "vuex";
 
 export default {
   data() {
@@ -223,7 +223,7 @@ export default {
     search_id(value) {
       if (value.length > 1) {
         this.params.search = value;
-        this.params.field = 'id';
+        this.params.field = 'avis_comments.id';
       } else {
         delete this.params.search;
         delete this.params.field;
@@ -285,12 +285,11 @@ export default {
     },
 
     fetchComments() {
+      this.loading = true;
       this.$api.avisComments.fetch(this.currentPage, this.params).then(response => {
         this.comments = response.data.data.map(item => {
+          if (item.claimed_until) item._rowVariant = 'info';
           item.selected = false;
-          if (item.claimed_until) {
-            item._rowVariant = 'info'
-          }
           return item;
         });
         this.currentPage = response.data.current_page;
@@ -348,21 +347,21 @@ export default {
 }
 </script>
 <style lang="scss">
-  .adminComments {
-    padding: 25px;
-    border-radius: 5px;
-    margin-bottom: 100px;
+.adminComments {
+  padding: 25px;
+  border-radius: 5px;
+  margin-bottom: 100px;
 
-    &__attachment {
-      cursor: pointer;
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-    }
-
-    .table.b-table > thead > tr > [aria-sort]:not(.b-table-sort-icon-left),
-    .table.b-table > tfoot > tr > [aria-sort]:not(.b-table-sort-icon-left) {
-      background-position: right 73px;
-    }
+  &__attachment {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
   }
+
+  .table.b-table > thead > tr > [aria-sort]:not(.b-table-sort-icon-left),
+  .table.b-table > tfoot > tr > [aria-sort]:not(.b-table-sort-icon-left) {
+    background-position: right 73px;
+  }
+}
 </style>
