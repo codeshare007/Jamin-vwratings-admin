@@ -8,22 +8,43 @@
           @change="handlePageChange"
           :total-rows="total"
         />
-        <div class="ml-3" v-if="ids.length > 0">
+      </b-col>
+    </div>
+
+    <b-row class="justify-content-between">
+      <b-col cols="2" class="d-flex p-0">
+        <div class="mt-1 ml-4 pl-4" style="width: 13%">
           <b-button
+            v-if="ids.length > 0"
             variant="danger"
+            size="sm"
             @click="$refs['bulkModal'].show()"
-          >Bulk Delete
+          ><b-icon-trash />
           </b-button>
         </div>
+        <b-form-group class="ml-5 w-75 pr-5">
+          <b-form-input placeholder="id" v-model="search_id" />
+        </b-form-group>
       </b-col>
-      <b-col class="p-0 d-flex justify-content-end align-items-center">
-        <b-form-input class="mr-2 search-link" v-model="search" placeholder="Search..."/>
+      <b-col cols="3" class="p-0">
+        <b-form-group class="w-75">
+          <b-form-input placeholder="username" v-model="search_username" />
+        </b-form-group>
+      </b-col>
+      <b-col cols="3">
+        <b-form-group class="w-75">
+          <b-form-input placeholder="name" v-model="search_name" />
+        </b-form-group>
+      </b-col>
+      <b-col cols="1" />
+      <b-col cols="3" class="p-0 d-flex justify-content-end align-items-center">
         <b-button variant="success" @click="create" class="mr-2">Create</b-button>
         <b-button variant="primary" @click="fetchParties">
           <b-icon-arrow-clockwise/>
         </b-button>
       </b-col>
-    </div>
+    </b-row>
+
     <b-table
       ref="partiesTable"
       no-local-sorting
@@ -34,6 +55,7 @@
       :busy="loading"
       :items="parties"
     >
+
       <template #head(select)>
         <div class="d-flex justify-content-center align-items-center h-100">
           <b-checkbox type="checkbox" @change="selectAllRows"/>
@@ -90,6 +112,11 @@ export default {
     return {
       ids: [],
       parties: [],
+      // search
+      search_id: '',
+      search_username: '',
+      search_name: '',
+      //
       loading: false,
       selectAll: false,
       sortBy: 'created_at',
@@ -129,10 +156,36 @@ export default {
       this.params.sort = (data === true ? 'desc' : 'asc')
       this.fetchParties();
     },
-    search(data) {
-      this.params.search = data;
+    search_id(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'id';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
       this.fetchParties()
-    }
+    },
+    search_username(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'username';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchParties()
+    },
+    search_name(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'name';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchParties()
+    },
   },
 
   mounted() {

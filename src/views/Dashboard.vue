@@ -15,19 +15,19 @@
         <b-card class="mt-2" header="Players">
           <h1>{{ information.avis }}</h1>
         </b-card>
-      </b-col>	  
+      </b-col>
       <b-col>
         <b-card class="mt-2" header="Messages">
           <h1>{{ information.messages }}</h1>
         </b-card>
-      </b-col>	  
+      </b-col>
     </b-row>
-   <b-row v-if="!loading">
+    <b-row v-if="!loading">
       <b-col>
         <b-card class="mt-2" header="Parties Claimed">
           <h1>{{ information.pclaims }}</h1>
         </b-card>
-      </b-col>		  
+      </b-col>
       <b-col>
         <b-card class="mt-2" header="Parties Comments">
           <h1>{{ information.pcomments }}</h1>
@@ -37,14 +37,14 @@
         <b-card class="mt-2" header="Parties Ratings">
           <h1>{{ information.pratings }}</h1>
         </b-card>
-      </b-col>  
-    </b-row>	
-   <b-row v-if="!loading">
+      </b-col>
+    </b-row>
+    <b-row v-if="!loading">
       <b-col>
         <b-card class="mt-2" header="Players Claimed">
           <h1>{{ information.claims }}</h1>
         </b-card>
-      </b-col>		  
+      </b-col>
       <b-col>
         <b-card class="mt-2" header="Players Comments">
           <h1>{{ information.comments }}</h1>
@@ -54,7 +54,7 @@
         <b-card class="mt-2" header="Players Ratings">
           <h1>{{ information.ratings }}</h1>
         </b-card>
-      </b-col>  
+      </b-col>
     </b-row>
 
     <b-row>
@@ -129,10 +129,15 @@ export default {
   .information {
     font-size: 24px;
   }
-  
+
+  .card {
+    margin-bottom: 20px;
+  }
+
   .card-header {
-    padding: 0;
+    padding: 5px 10px;
+    border-bottom: 0;
     background-color: rgb(95 167 55 / 47%);
-}
+  }
 }
 </style>

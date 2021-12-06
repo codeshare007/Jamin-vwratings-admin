@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-users">
+  <div class="adminUsers">
     <div class="d-flex justify-content-between mb-3">
       <b-col class="p-0  d-flex justify-items-start">
         <b-pagination
@@ -16,30 +16,6 @@
         </b-button>
       </b-col>
     </div>
-    <b-row>
-      <b-col cols="4" class="d-flex">
-        <div class="mt-1 ml-3 mr-3" style="width: 10%">
-          <b-button
-            v-if="ids.length > 0"
-            variant="danger"
-            size="sm"
-            @click="$refs['bulkModal'].show()"
-          ><b-icon-trash />
-          </b-button>
-        </div>
-        <b-form-group class="w-25 mr-2">
-          <b-form-input placeholder="id" v-model="search_id" />
-        </b-form-group>
-        <b-form-group class="w-100">
-          <b-form-input placeholder="username" v-model="search_username" />
-        </b-form-group>
-      </b-col>
-      <b-col cols="3">
-        <b-form-group>
-          <b-form-input placeholder="email" v-model="search_email" />
-        </b-form-group>
-      </b-col>
-    </b-row>
 
     <b-table
       ref="userTable"
@@ -52,9 +28,41 @@
       :fields="usersFields">
 
       <template #head(select)>
-        <div class="d-flex justify-content-center align-items-center h-100">
-          <b-checkbox type="checkbox" @change="selectAllRows"/>
+        <div class="d-flex flex-column align-items-center">
+          <b-button
+            v-if="ids.length > 0"
+            variant="danger"
+            size="sm"
+            class="mb-3"
+            @click="$refs['bulkModal'].show()"
+          >
+            <b-icon-trash/>
+          </b-button>
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <b-checkbox type="checkbox" @change="selectAllRows"/>
+          </div>
         </div>
+      </template>
+
+      <template #head(id)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_id"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(username)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_username"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(email)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_email"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
       </template>
 
       <template #cell(select)="data">
@@ -117,9 +125,11 @@ export default {
       deletableId: null,
       total: 1,
       isDesc: false,
+      // search
       search_id: '',
       search_username: '',
       search_email: '',
+      //
       params: {
         search: '',
         sortBy: 'created_at',
@@ -279,9 +289,14 @@ export default {
 }
 </script>
 <style lang="scss">
-.admin-users {
+.adminUsers {
   padding: 25px;
   border-radius: 5px;
   margin-bottom: 100px;
+
+  .table.b-table > thead > tr > [aria-sort]:not(.b-table-sort-icon-left),
+  .table.b-table > tfoot > tr > [aria-sort]:not(.b-table-sort-icon-left) {
+    background-position: right 73px;
+  }
 }
 </style>

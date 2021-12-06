@@ -8,22 +8,15 @@
           @change="handlePageChange"
           :total-rows="total"
         />
-        <div class="ml-3" v-if="ids.length > 0">
-          <b-button
-            variant="danger"
-            @click="$refs['bulkModal'].show()"
-          >Bulk Delete
-          </b-button>
-        </div>
       </b-col>
-      <b-col class="p-0 d-flex justify-content-end align-items-center">
-        <b-form-input class="mr-2 search-link" v-model="search" placeholder="Search..."/>
+      <b-col cols="3" class="p-0 d-flex justify-content-end align-items-center">
         <b-button variant="success" @click="create" class="mr-2">Create</b-button>
-        <b-button variant="primary" @click="fetchAvis()">
+        <b-button variant="primary" @click="fetchAvis">
           <b-icon-arrow-clockwise/>
         </b-button>
       </b-col>
     </div>
+
     <b-table
       ref="avisTable"
       no-local-sorting
@@ -35,9 +28,41 @@
       :items="avis"
     >
       <template #head(select)>
-        <div class="d-flex justify-content-center align-items-center h-100">
-          <b-checkbox type="checkbox" @change="selectAllRows"/>
+        <div class="d-flex flex-column align-items-center">
+          <b-button
+            v-if="ids.length > 0"
+            variant="danger"
+            size="sm"
+            class="mb-3"
+            @click="$refs['bulkModal'].show()"
+          >
+            <b-icon-trash/>
+          </b-button>
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <b-checkbox type="checkbox" @change="selectAllRows"/>
+          </div>
         </div>
+      </template>
+
+      <template #head(id)="data">
+        <b-form-group class="mb-3">
+          <b-form-input placeholder="id" v-model="search_id"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(username)="data">
+        <b-form-group class="mb-3">
+          <b-form-input placeholder="username" v-model="search_username"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(name)="data">
+        <b-form-group class="mb-3">
+          <b-form-input placeholder="name" v-model="search_name"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
       </template>
 
       <template #cell(select)="row">
@@ -56,11 +81,11 @@
       </template>
 
       <template #cell(actions)="row">
-        <b-button variant="primary" size="sm" @click="edit(row.item.id)">
-          <b-icon-pencil />
+        <b-button class="mr-2" variant="primary" size="sm" @click="edit(row.item.id)">
+          <b-icon-pencil/>
         </b-button>
         <b-button variant="danger" size="sm" @click="showDeleteModal(row.item.id)">
-          <b-icon-trash />
+          <b-icon-trash/>
         </b-button>
       </template>
 
@@ -103,9 +128,14 @@ export default {
         sort: 'desc',
         page: 1
       },
+      // search
+      search_id: '',
+      search_username: '',
+      search_name: '',
+      //
       avisFields: [
         {key: 'select', label: '', sortable: false},
-        {key: 'id', label: '#', sortable: true},
+        {key: 'id', label: '#', sortable: true, thStyle: 'width: 100px'},
         {key: 'username', label: 'user', sortable: true},
         {key: 'name', sortable: true},
         {
@@ -129,10 +159,36 @@ export default {
       this.params.sort = (data === true ? 'desc' : 'asc')
       this.fetchAvis();
     },
-    search(data) {
-      this.params.search = data;
+    search_id(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'id';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
       this.fetchAvis()
-    }
+    },
+    search_username(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'username';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchAvis()
+    },
+    search_name(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'name';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchAvis()
+    },
   },
 
   mounted() {
@@ -159,6 +215,7 @@ export default {
     },
 
     fetchAvis() {
+      this.loading = true;
       this.$api.avis.fetch(this.currentPage, this.params).then(response => {
         this.avis = response.data.data.map(item => {
           item.selected = false;
@@ -224,5 +281,10 @@ export default {
   padding: 25px;
   border-radius: 5px;
   margin-bottom: 100px;
+
+  .table.b-table > thead > tr > [aria-sort]:not(.b-table-sort-icon-left),
+  .table.b-table > tfoot > tr > [aria-sort]:not(.b-table-sort-icon-left) {
+    background-position: right 73px;
+  }
 }
 </style>
