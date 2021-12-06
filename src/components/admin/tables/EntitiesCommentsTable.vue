@@ -189,8 +189,8 @@ export default {
       ],
       commentsFields: [
         {key: 'select', label: '', sortable: false},
-        {key: 'id', label: '#', sortable: true},
-        {key: 'username', label: 'user', sortable: true},
+        {key: 'id', label: '#', sortable: true, thStyle: 'width: 100px'},
+        {key: 'username', label: 'user', sortable: true, thStyle: 'width: 100px'},
         {key: 'name', label: 'avi', sortable: true},
         {key: 'content', label: 'content'},
         {key: 'opinion', sortable: true},
