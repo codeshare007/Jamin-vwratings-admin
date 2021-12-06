@@ -6,6 +6,7 @@
       <AviCommentEditDialog />
       <AdsCampaignEditDialog />
       <AviClaimEditDialog />
+      <AviRatingEditDialog />
       <PartyEditDialog />
       <PartyCommentEditDialog />
       <PartyClaimEditDialog />
@@ -21,6 +22,7 @@ import UserEditDialog from "./components/admin/dialogs/UserEditDialog";
 import AviEditDialog from "./components/admin/dialogs/AviEditDialog";
 import AviCommentEditDialog from "./components/admin/dialogs/AviCommentEditDialog";
 import AdsCampaignEditDialog from "./components/admin/dialogs/AdsCampaignEditDialog";
+import AviRatingEditDialog from "./components/admin/dialogs/AviRatingEditDialog";
 import AviClaimEditDialog from './components/admin/dialogs/AviClaimEditDialog'
 import PartyEditDialog from "./components/admin/dialogs/PartyEditDialog";
 import PartyCommentEditDialog from "./components/admin/dialogs/PartyCommentEditDialog";
@@ -35,6 +37,7 @@ export default {
     AviCommentEditDialog,
     AdsCampaignEditDialog,
     AviClaimEditDialog,
+    AviRatingEditDialog,
     PartyCommentEditDialog,
     PartyEditDialog,
     PartyClaimEditDialog

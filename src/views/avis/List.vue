@@ -76,12 +76,6 @@
         </div>
       </template>
 
-      <template #table-busy>
-        <div class="text-center">
-          <b-spinner class="align-middle"></b-spinner>
-        </div>
-      </template>
-
       <template #cell(index)="data">
         {{ data.index + 1 }}
       </template>
@@ -93,6 +87,13 @@
         <b-button variant="danger" size="sm" @click="showDeleteModal(row.item.id)">
           <b-icon-trash/>
         </b-button>
+      </template>
+
+
+      <template #table-busy>
+        <div class="text-center">
+          <b-spinner class="align-middle"></b-spinner>
+        </div>
       </template>
 
     </b-table>
@@ -124,7 +125,6 @@ export default {
       loading: false,
       selectAll: false,
       sortBy: 'created_at',
-      search: '',
       currentPage: 1,
       total: 1,
       isDesc: false,
@@ -168,7 +168,7 @@ export default {
     search_id(value) {
       if (value.length > 1) {
         this.params.search = value;
-        this.params.field = 'id';
+        this.params.field = 'avis.id';
       } else {
         delete this.params.search;
         delete this.params.field;

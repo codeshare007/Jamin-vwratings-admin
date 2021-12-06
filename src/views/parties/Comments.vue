@@ -1,21 +1,36 @@
 <template>
-  <div class="adminParties">
+  <div class="adminPartiesComments">
     <div class="d-flex justify-content-between mb-3">
       <b-col class="p-0  d-flex justify-items-start">
-        <b-pagination class="m-0" v-model="currentPage" @change="handlePageChange" :total-rows="total"/>
+        <b-pagination
+          class="m-0"
+          v-model="currentPage"
+          @change="handlePageChange"
+          :total-rows="total"
+        />
         <div class="ml-3" v-if="ids.length > 0">
-          <b-button class="mr-4" variant="danger" @click="$refs['bulkModal'].show()">Bulk Delete</b-button>
-          <b-button variant="success" @click="bulkOpinion(1)">Set Positive</b-button>
-          <b-button variant="danger" @click="bulkOpinion(2)">Set Negative</b-button>
-          <b-button variant="dark" @click="bulkOpinion(0)">Remove Opinion</b-button>
+          <b-button
+            variant="success"
+            class="mr-2"
+            v-text="`Set Positive`"
+            @click="bulkOpinion(1)"
+          />
+          <b-button
+            variant="danger"
+            class="mr-2"
+            v-text="`Set Negative`"
+            @click="bulkOpinion(2)"
+          />
+          <b-button
+            variant="dark"
+            class="mr-2"
+            v-text="`Remove Opinion`"
+            @click="bulkOpinion(0)"
+          />
         </div>
       </b-col>
       <b-col cols="4" class="p-0 d-flex justify-content-end align-items-center">
-        <b-form-input
-          class="mr-2 search-link"
-          v-model="search"
-          placeholder="Search..."/>
-        <b-button variant="primary" @click="fetchPartiesComments()">
+        <b-button variant="primary" @click="fetchComments">
           <b-icon-arrow-clockwise/>
         </b-button>
       </b-col>
@@ -31,10 +46,9 @@
       :items="comments"
       :fields="commentsFields"
     >
-
       <template #head(select)>
         <div class="d-flex justify-content-center align-items-center h-100">
-          <b-checkbox type="checkbox" @change="selectAllRows"/>
+          <b-checkbox type="checkbox" @change="selectAllRows" />
         </div>
       </template>
 
@@ -49,8 +63,46 @@
         </div>
       </template>
 
+      <template #head(id)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_id"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(username)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_username"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(name)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_name"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(content)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_content"/>
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #table-busy>
+        <div class="text-center">
+          <b-spinner class="align-middle"></b-spinner>
+        </div>
+      </template>
+
       <template #cell(index)="row">
         {{ row.index + 1 }}
+      </template>
+
+      <template #cell(name)="row">
+        <a :href="'/avis/' + row.item.avis_id" target="_blank">{{ row.item.name }}</a>
       </template>
 
       <template #cell(opinion)="row">
@@ -64,17 +116,25 @@
 
         <div v-for="(item, key) in row.item.attachments" :key="key">
           <viewer>
-            <img class="adminParties__attachment" :src="item.path" :alt="item.filename"/>
+            <img class="adminPartiesComments__attachment" :src="item.path" :alt="item.filename" />
           </viewer>
         </div>
       </template>
 
       <template #cell(actions)="row">
-        <b-button variant="primary" size="sm" @click="edit(row.item.id)" class="mr-2">
-          <b-icon-pencil/>
+        <b-button
+          variant="primary"
+          size="sm"
+          class="mr-2"
+          @click="edit(row.item.id)"
+        >
+          <b-icon-pencil />
         </b-button>
-        <b-button variant="danger" size="sm" @click="showDeleteModal(row.item.id)">
-          <b-icon-trash/>
+        <b-button
+          variant="danger"
+          size="sm"
+          @click="showDeleteModal(row.item.id)">
+          <b-icon-trash />
         </b-button>
       </template>
     </b-table>
@@ -104,7 +164,7 @@
   </div>
 </template>
 <script>
-import {mapActions} from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   data() {
@@ -124,12 +184,16 @@ export default {
         sort: 'desc',
         page: 1
       },
+      search_id: '',
+      search_username: '',
+      search_name: '',
+      search_content: '',
       commentsFields: [
         {key: 'select', label: '', sortable: false},
         {key: 'id', label: '#', sortable: true},
         {key: 'username', label: 'user', sortable: true},
-        {key: 'name', label: 'party', sortable: true},
-        {key: 'content'},
+        {key: 'name', label: 'avi', sortable: true},
+        {key: 'content', label: 'content'},
         {key: 'opinion', sortable: true},
         {key: 'actions', thStyle: 'min-width: 120px', sortable: false}
       ]
@@ -149,21 +213,57 @@ export default {
     sortBy(data) {
       if (data) {
         this.params.sortBy = data;
-        this.fetchPartiesComments();
+        this.fetchComments();
       }
     },
     isDesc(data) {
       this.params.sort = (data === true ? 'desc' : 'asc')
-      this.fetchPartiesComments();
+      this.fetchComments();
     },
-    search(data) {
-      this.params.search = data;
-      this.fetchPartiesComments()
+    search_id(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'id';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchComments()
+    },
+    search_username(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'username';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchComments()
+    },
+    search_name(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'name';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchComments()
+    },
+    search_content(value) {
+      if (value.length > 1) {
+        this.params.search = value;
+        this.params.field = 'content';
+      } else {
+        delete this.params.search;
+        delete this.params.field;
+      }
+      this.fetchComments()
     }
   },
 
   mounted() {
-    this.fetchPartiesComments()
+    this.fetchComments()
   },
 
   methods: {
@@ -172,36 +272,31 @@ export default {
     }),
 
     edit(id) {
-      this.editPartyComment(id).then(() => this.fetchPartiesComments());
+      this.editPartyComment(id).then(() => this.fetchComments());
     },
 
     remove() {
-      this.$api.partiesComments
-        .delete(this.deletableId)
-        .then(response => {
-          if (response.data.status === 'success') {
-            this.fetchPartiesComments();
-            this.deletableId = null;
-          }
-        })
+      this.$api.partiesComments.delete(this.deletableId).then(response => {
+        if (response.data.status === 'success') {
+          this.fetchComments();
+          this.deletableId = null;
+        }
+      })
     },
 
-
-    fetchPartiesComments() {
-      this.$api.partiesComments
-        .fetch(this.currentPage, this.params)
-        .then(response => {
-          this.comments = response.data.data.map(item => {
-            item.selected = false;
-            if (item.claimed_until) {
-              item._rowVariant = 'info'
-            }
-            return item;
-          });
-          this.currentPage = response.data.current_page;
-          this.total = response.data.total;
-          this.loading = false;
-        })
+    fetchComments() {
+      this.$api.partiesComments.fetch(this.currentPage, this.params).then(response => {
+        this.comments = response.data.data.map(item => {
+          item.selected = false;
+          if (item.claimed_until) {
+            item._rowVariant = 'info'
+          }
+          return item;
+        });
+        this.currentPage = response.data.current_page;
+        this.total = response.data.total;
+        this.loading = false;
+      })
     },
 
     selectAllRows() {
@@ -214,14 +309,16 @@ export default {
       this.ids = this.comments
         .filter(item => {
           if (item.selected) return item.id
-        }).map(item => item.id);
+        })
+        .map(item => item.id);
     },
 
     rowSelected() {
       this.ids = this.comments
         .filter(item => {
           if (item.selected) return item.id
-        }).map(item => item.id);
+        })
+        .map(item => item.id);
     },
 
     showDeleteModal(id) {
@@ -230,28 +327,28 @@ export default {
     },
 
     bulkOpinion(opinion) {
-      this.$api.partiesComments.bulkOpinion(this.ids, opinion).then(() => {
+      this.$api.avisComments.bulkOpinion(this.ids, opinion).then(() => {
         this.ids = [];
-        this.fetchPartiesComments();
+        this.fetchComments();
       })
     },
 
     bulkDelete() {
-      this.$api.partiesComments.bulkDelete(this.ids).then(() => {
+      this.$api.avisComments.bulkDelete(this.ids).then(() => {
         this.ids = [];
-        this.fetchPartiesComments();
+        this.fetchComments();
       });
     },
 
     handlePageChange(value) {
       this.params.page = value;
-      this.fetchPartiesComments()
+      this.fetchComments()
     }
   }
 }
 </script>
 <style lang="scss">
-.adminParties {
+.adminPartiesComments {
   padding: 25px;
   border-radius: 5px;
   margin-bottom: 100px;
@@ -261,6 +358,11 @@ export default {
     width: 50px;
     height: 50px;
     object-fit: cover;
+  }
+
+  .table.b-table > thead > tr > [aria-sort]:not(.b-table-sort-icon-left),
+  .table.b-table > tfoot > tr > [aria-sort]:not(.b-table-sort-icon-left) {
+    background-position: right 73px;
   }
 }
 </style>
