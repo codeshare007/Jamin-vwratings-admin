@@ -1,10 +1,9 @@
 import UserEditDialog from './dialogs/user';
 import EntityEditDialog from './dialogs/entity';
+import EntityCommentEditDialog from './dialogs/entityComment';
 import AviClaimEditDialog from './dialogs/aviClaim';
-import AviCommentEditDialog from './dialogs/aviComment';
 import AviRatingEditDialog from './dialogs/aviRating';
 import AdsCampaignEditDialog from './dialogs/campaign';
-import PartyCommentEditDialog from './dialogs/partyComment';
 import PartyClaimEditDialog from './dialogs/partyClaim';
 
 export default {
@@ -13,10 +12,9 @@ export default {
     user: UserEditDialog,
     campaign: AdsCampaignEditDialog,
     entity: EntityEditDialog,
+    entityComment: EntityCommentEditDialog,
     aviClaim: AviClaimEditDialog,
-    aviComment: AviCommentEditDialog,
     aviRating: AviRatingEditDialog,
     partyClaim: PartyClaimEditDialog,
-    partyComment: PartyCommentEditDialog,
   },
 }

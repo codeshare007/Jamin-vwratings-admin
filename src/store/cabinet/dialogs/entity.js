@@ -1,6 +1,7 @@
 const initial = {
   id: null,
   status: 'hidden',
+  entities: null,
   resolve: null,
   reject: null,
 };

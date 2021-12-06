@@ -14,7 +14,7 @@ export default [
   {
     name: 'cabinet.avis',
     path: 'avis',
-    component: () => import('@/views/avis/List'),
+    component: () => import('@/views/avis/Avis'),
     meta: {title: 'Avis'}
   },
   {
@@ -50,7 +50,7 @@ export default [
   {
     name: 'cabinet.parties',
     path: 'parties',
-    component: () => import('@/views/parties/List'),
+    component: () => import('@/views/parties/Parties'),
     meta: {title: 'Parties'}
   },
   {

@@ -76,7 +76,6 @@ export default {
     }
   },
 
-
   methods: {
     ...mapActions({
       close: 'dialogs/entity/clear',
