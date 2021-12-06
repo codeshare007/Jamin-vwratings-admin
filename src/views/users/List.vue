@@ -9,12 +9,6 @@
           :total-rows="total"
         />
       </b-col>
-      <b-col class="p-0 d-flex justify-content-end align-items-center">
-        <b-button variant="success" @click="create" class="mr-2">Create</b-button>
-        <b-button variant="primary" @click="fetchUsers">
-          <b-icon-arrow-clockwise/>
-        </b-button>
-      </b-col>
     </div>
 
     <b-table
@@ -68,6 +62,23 @@
         <b-form-group class="mb-3">
           <b-form-input v-model="search_email" placeholder="email" />
         </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(ip_address)="data">
+        <b-form-group class="mb-3">
+          <b-form-input v-model="search_ip" placeholder="ip address" />
+        </b-form-group>
+        <span>{{ data.label }}</span>
+      </template>
+
+      <template #head(actions)="data">
+        <div class="mb-3">
+          <b-button variant="success" @click="create" class="mr-2">Create</b-button>
+          <b-button variant="primary" @click="fetchEntities">
+            <b-icon-arrow-clockwise/>
+          </b-button>
+        </div>
         <span>{{ data.label }}</span>
       </template>
 
@@ -135,6 +146,7 @@ export default {
       search_id: '',
       search_username: '',
       search_email: '',
+      search_ip: '',
       //
       params: {
         search: '',
@@ -144,7 +156,7 @@ export default {
       },
       usersFields: [
         {key: 'select', label: '', sortable: false},
-        {key: 'id', label: '#', sortable: true},
+        {key: 'id', label: '#', sortable: true, thStyle: 'width: 100px'},
         {key: 'username', sortable: true},
         {
           key: 'email', formatter: item => {
@@ -158,7 +170,7 @@ export default {
             return moment(createdAt).format('YYYY-MM-DD HH:mm')
           }
         },
-        {key: 'actions', sortable: false}
+        {key: 'actions', label: 'actions', sortable: false}
       ]
     }
   },
@@ -182,33 +194,19 @@ export default {
       this.fetchUsers();
     },
     search_id(value) {
-      if (value.length > 1) {
-        this.params.search = value;
-        this.params.field = 'id';
-      } else {
-        delete this.params.search;
-        delete this.params.field;
-      }
+      value.length > 1 ? this.params.id = value : this.$delete(this.params, 'id')
       this.fetchUsers()
     },
     search_username(value) {
-      if (value.length > 1) {
-        this.params.search = value;
-        this.params.field = 'username';
-      } else {
-        delete this.params.search;
-        delete this.params.field;
-      }
+      value.length > 1 ? this.params.username = value : this.$delete(this.params, 'username')
       this.fetchUsers()
     },
     search_email(value) {
-      if (value.length > 1) {
-        this.params.search = value;
-        this.params.field = 'email';
-      } else {
-        delete this.params.search;
-        delete this.params.field;
-      }
+      value.length > 1 ? this.params.email = value : this.$delete(this.params, 'email')
+      this.fetchUsers()
+    },
+    search_ip(value) {
+      value.length > 1 ? this.params.ip = value : this.$delete(this.params, 'ip')
       this.fetchUsers()
     },
   },

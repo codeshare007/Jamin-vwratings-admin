@@ -4,9 +4,9 @@
       <UserEditDialog />
       <EntityEditDialog />
       <EntityCommentEditDialog />
+      <EntityRatingDialog />
       <AdsCampaignEditDialog />
       <AviClaimEditDialog />
-      <AviRatingEditDialog />
       <PartyClaimEditDialog />
     </div>
     <router-view />
@@ -20,20 +20,20 @@ import UserEditDialog from "./components/admin/dialogs/UserEditDialog";
 import EntityEditDialog from './components/admin/dialogs/EntityEditDialog';
 import EntityCommentEditDialog from "./components/admin/dialogs/EntityCommentEditDialog";
 import AdsCampaignEditDialog from "./components/admin/dialogs/AdsCampaignEditDialog";
-import AviRatingEditDialog from "./components/admin/dialogs/AviRatingEditDialog";
 import AviClaimEditDialog from './components/admin/dialogs/AviClaimEditDialog'
 import PartyClaimEditDialog from './components/admin/dialogs/PartyClaimEditDialog'
+import EntityRatingDialog from "./components/admin/dialogs/EntityRatingEditDialog";
 
 export default {
   name: 'App',
 
   components: {
+    EntityRatingDialog,
     UserEditDialog,
     EntityEditDialog,
     EntityCommentEditDialog,
     AdsCampaignEditDialog,
     AviClaimEditDialog,
-    AviRatingEditDialog,
     PartyClaimEditDialog
   },
 

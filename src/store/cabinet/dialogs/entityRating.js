@@ -2,6 +2,7 @@ const initial = {
   id: null,
   status: 'hidden',
   resolve: null,
+  method: null,
   reject: null,
 };
 
@@ -14,21 +15,23 @@ export default {
     clear({commit}) {
       commit('clear');
     },
-    create({commit}) {
+    create({commit}, method) {
       return new Promise((resolve, reject) => {
         commit('set', {
           status: 'create',
           id: null,
+          method: method,
           resolve,
           reject
         });
       });
     },
-    edit({commit}, id) {
+    edit({commit}, data) {
       return new Promise((resolve, reject) => {
         commit('set', {
           status: 'edit',
-          id: id,
+          id: data.id,
+          method: data.method,
           resolve,
           reject
         });
@@ -39,12 +42,14 @@ export default {
     clear(state) {
       state.status = initial.status;
       state.id = initial.id;
+      state.method = initial.method;
       state.resolve = initial.resolve;
       state.reject = initial.reject;
     },
-    set(state, {status, id, resolve, reject}) {
+    set(state, {status, id, method, resolve, reject}) {
       state.status = status;
       state.id = id;
+      state.method = method
       state.resolve = resolve;
       state.reject = reject;
     },

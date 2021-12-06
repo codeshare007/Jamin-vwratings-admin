@@ -1,52 +1,58 @@
 <template>
   <b-modal
-    :title="party.id ? 'Edit Party' : 'Create Party'"
+    :title="entityRating.id ? 'Edit Rating' : 'Create Rating'"
     :visible.sync="visible"
     @submit.prevent.native=""
     @hide="handleClose(null)">
 
     <b-form>
-      <b-form-group label="Party name">
-        <b-input type="text" v-model="party.name"/>
+      <b-form-group label="Avis Id">
+        <b-form-input v-model="entityRating.avis_id" />
       </b-form-group>
+
       <b-form-group label="User Id">
-        <b-input type="text" v-model="party.user_id"/>
+        <b-form-input v-model="entityRating.user_id" />
+      </b-form-group>
+
+      <b-form-group label="Rating">
+        <b-form-input v-model="entityRating.rating" type="number" step="0.5" max="12" />
       </b-form-group>
     </b-form>
 
     <template #modal-footer="{ ok, cancel }">
       <b-button @click="handleClose(null) && cancel()">Cancel</b-button>
-      <b-button variant="primary" v-if="party.id" @click="edit() && ok()">Save</b-button>
+      <b-button variant="primary" v-if="entityRating.id" @click="edit() && ok()">Save</b-button>
       <b-button variant="success" v-else @click="create" :disabled="loading">Create</b-button>
     </template>
   </b-modal>
 </template>
 <script>
-
 import {mapActions, mapState} from 'vuex';
 
 export default {
-  name: 'PartyEditDialog',
-
+  name: 'entityRatingDialog',
   data() {
     let initialState = {
       id: null,
       user_id: null,
-      name: null,
+      avis_id: null,
+      method: null,
+      opinion: null,
+      content: null
     };
     return {
       loading: false,
       status: 'hidden',
       resolve: null,
       reject: null,
-      party: initialState,
+      entityRating: initialState,
       initialState: initialState,
       error: null
     }
   },
 
   computed: {
-    ...mapState('dialogs/party', {
+    ...mapState('dialogs/entityRating', {
       form: state => state
     }),
     visible: {
@@ -59,38 +65,37 @@ export default {
     }
   },
 
-
   watch: {
     form: {
       deep: true,
       handler(value) {
         this.clearData();
-        this.party.id = value.id;
+        this.entityRating.id = value.id;
         this.status = value.status;
+        this.method = value.method;
         this.resolve = value.resolve;
         this.reject = value.reject;
-
-        if (this.party.id) this.load();
+        if (this.entityRating.id) this.load();
       }
     }
   },
 
-
   methods: {
     ...mapActions({
-      close: 'dialogs/party/clear',
+      close: 'dialogs/entityRating/clear',
     }),
     clearData() {
-      this.party = this.initialState;
+      this.entityRating = this.initialState;
     },
     handleClose(done = null) {
       done ? done() : this.status = 'hidden';
     },
     load() {
       this.loading = true;
-      this.$api.parties.get(this.party.id)
+      this.$api[this.method]
+        .get(this.entityRating.id)
         .then(response => {
-          this.party = response.data;
+          this.entityRating = response.data;
         }).catch(() => {
         this.reject();
         this.clearData();
@@ -102,7 +107,8 @@ export default {
     create() {
       this.error = null;
       this.loading = true;
-      this.$api.parties.create(this.party)
+      this.$api[this.method]
+        .create(this.entityRating)
         .then(response => {
           this.resolve(response);
           this.handleClose();
@@ -114,7 +120,8 @@ export default {
     edit() {
       this.error = null;
       this.loading = true;
-      this.$api.parties.update(this.party.id, this.party)
+      this.$api.avisRatings
+        .update(this.entityRating.id, this.entityRating)
         .then(response => {
           this.resolve(response);
           this.handleClose();
