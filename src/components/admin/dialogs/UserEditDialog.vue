@@ -13,7 +13,7 @@
         <b-input type="text" v-model="user.email"/>
       </b-form-group>
       <b-form-group label="Role">
-        <b-form-select :options="roles" v-model="user.role"/>
+        <b-form-select :options="roles" v-model="user.role" />
       </b-form-group>
       <b-form-group label="Password">
         <b-input type="password" v-model="user.password"/>
@@ -47,7 +47,7 @@ export default {
       roles: [
         {value: 1, text: 'Administrator'},
         {value: 2, text: 'User'},
-        {value: 3, text: 'Limited User'}
+        {value: 3, text: 'Ban'}
       ],
       resolve: null,
       reject: null,

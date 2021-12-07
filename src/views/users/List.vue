@@ -177,7 +177,7 @@ export default {
 
   filters: {
     role(data) {
-      const roles = {1: 'Admin', 2: 'User'}
+      const roles = {1: 'Admin', 2: 'User', 3: 'Ban'}
       return roles[data];
     }
   },
