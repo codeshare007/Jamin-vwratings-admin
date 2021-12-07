@@ -56,18 +56,6 @@
         </b-card>
       </b-col>
     </b-row>
-
-    <b-row>
-      <b-col cols="3">
-        <b-form class="mt-5">
-          <b-form-group label="Amount of hits to see promo page">
-            <b-form-input type="number" v-model="form.hits"/>
-          </b-form-group>
-
-          <b-button variant="success" @click="changeAmount">Change</b-button>
-        </b-form>
-      </b-col>
-    </b-row>
   </div>
 </template>
 <script>
@@ -76,9 +64,6 @@ export default {
     return {
       information: {},
       loading: true,
-      form: {
-        hits: null
-      }
     }
   },
 
@@ -90,7 +75,6 @@ export default {
 
   mounted() {
     this.fetchInformation();
-    this.fetchHits();
   },
 
   methods: {
@@ -98,20 +82,6 @@ export default {
       this.$api.adminDashboard.information().then(response => {
         this.information = response.data;
         this.loading = false;
-      })
-    },
-
-    fetchHits() {
-      this.$api.adminDashboard.hits().then(response => {
-        this.form.hits = response.data;
-      })
-    },
-
-    changeAmount() {
-      this.$api.adminDashboard.changeHits(this.form.hits).then(response => {
-        if (response.data.status === 'success') {
-          this.fetchHits();
-        }
       })
     }
   }

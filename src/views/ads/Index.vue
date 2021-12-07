@@ -1,6 +1,18 @@
 <template>
   <div class="adminAdsCampaigns">
-    <div class="d-flex justify-content-between mb-3">
+  
+   <b-row>
+      <b-col class="p-0 d-flex">
+        <b-form class="mt-1 mb-4">
+          <b-form-group label="Amount of hits to see promo page">
+            <b-form-input type="number" v-model="form.hits"/>
+			<b-button variant="success" @click="changeAmount">Change</b-button>			
+          </b-form-group>
+        </b-form>
+      </b-col>
+    </b-row>  
+  
+    <div class="d-flex justify-content-between mb-3">		
       <b-col class="p-0  d-flex justify-items-start">
         <b-pagination
           class="m-0"
@@ -71,6 +83,9 @@ export default {
       ids: [],
       campaigns: [],
       loading: false,
+		form: {
+		hits: null
+		},
       selectAll: false,
       sortBy: 'created_at',
       search: '',
@@ -116,7 +131,8 @@ export default {
   },
 
   mounted() {
-    this.fetchAdsCampaigns()
+    this.fetchAdsCampaigns();
+    this.fetchHits();	
   },
 
   methods: {
@@ -164,6 +180,20 @@ export default {
         this.fetchAdsCampaigns();
       });
     },
+	
+    fetchHits() {
+      this.$api.adminDashboard.hits().then(response => {
+        this.form.hits = response.data;
+      })
+    },
+
+    changeAmount() {
+      this.$api.adminDashboard.changeHits(this.form.hits).then(response => {
+        if (response.data.status === 'success') {
+          this.fetchHits();
+        }
+      })
+    },	
 
     showDeleteModal(id) {
       this.deletableId = id;
@@ -179,7 +209,6 @@ export default {
 </script>
 <style lang="scss">
 .adminAdsCampaigns {
-  padding: 25px;
   border-radius: 5px;
   margin-bottom: 100px;
 }
