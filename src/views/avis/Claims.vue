@@ -99,15 +99,15 @@ export default {
       comments: [],
       loading: false,
       selectAll: false,
-      sortBy: 'created_at',
+      sortBy: 'claimed_until',
       search: '',
       currentPage: 1,
       total: 1,
       isDesc: false,
       params: {
         search: '',
-        sortBy: 'created_at',
-        sort: 'desc',
+        sortBy: 'claimed_until',
+        sort: 'asc',
         page: 1
       },
       commentsFields: [
