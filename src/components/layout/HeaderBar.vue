@@ -2,7 +2,7 @@
   <b-navbar sticky toggleable="lg" type="dark" class="border-bottom header-bar" variant="light">
     <b-container fluid>
       <b-navbar-brand class="text-dark" :to="{ name: 'cabinet.dashboard' }">
-        Vwratings Admin
+        VwRatings Admin
       </b-navbar-brand>
       <b-navbar-toggle class="bg-dark" target="nav-collapse" />
       <b-collapse id="nav-collapse" is-nav v-if="this.isLoading === false">
