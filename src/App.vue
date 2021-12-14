@@ -8,6 +8,7 @@
       <AdsCampaignEditDialog />
       <AviClaimEditDialog />
       <PartyClaimEditDialog />
+      <SettingEditDialog />
     </div>
     <router-view />
   </div>
@@ -17,6 +18,7 @@
 import {mapState} from "vuex";
 
 import UserEditDialog from "./components/admin/dialogs/UserEditDialog";
+import SettingEditDialog from './components/admin/dialogs/SettingEditDialog'
 import EntityEditDialog from './components/admin/dialogs/EntityEditDialog';
 import EntityCommentEditDialog from "./components/admin/dialogs/EntityCommentEditDialog";
 import AdsCampaignEditDialog from "./components/admin/dialogs/AdsCampaignEditDialog";
@@ -34,6 +36,7 @@ export default {
     EntityCommentEditDialog,
     AdsCampaignEditDialog,
     AviClaimEditDialog,
+    SettingEditDialog,
     PartyClaimEditDialog
   },
 

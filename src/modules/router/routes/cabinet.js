@@ -74,7 +74,7 @@ export default [
   {
     name: 'cabinet.settings',
     path: 'settings',
-    component: () => import('@/views/settings/List'),
+    component: () => import('@/views/settings/Settings'),
     meta: {title: 'Settings'}
   },
   {
