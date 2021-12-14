@@ -1,119 +1,116 @@
 <template>
-  <nav class="bg-dark sidebar-component col-md-2 p-0 d-none d-md-block bg-light sidebar">
-    <div class="sidebar-sticky">
-      <b-nav vertical v-if="isLoaded">
-        <b-navbar-nav>
-          <b-nav-item :to="{ name: 'cabinet.dashboard'}">
-            <b-icon-pencil /> <span class="ml-2">Dashboard</span>
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'cabinet.users'}">
-            <b-icon-person /> <span class="ml-2">Users</span>
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'cabinet.messages'}">
-            <b-icon-chat-text /> <span class="ml-2">Messages</span>
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'cabinet.ads.campaigns'}">
-            <b-icon-cash /> <span class="ml-2">Ads Campagins</span>
-          </b-nav-item>
-          <div class="border-top border-secondary"></div>
-          <b-nav-item :to="{ name: 'cabinet.avis' }">
-            <b-icon-person-fill /> <span class="ml-2">Avis</span>
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'cabinet.avis.claims'}">
-            <b-icon-hand-index /> <span class="ml-2">Avis Claims</span>
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'cabinet.avis.comments' }">
-            <b-icon-chat-text /> <span class="ml-2">Avis Comments</span>
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'cabinet.avis.ratings' }">
-            <b-icon-star /> <span class="ml-2">Avis Ratings</span>
-          </b-nav-item>
-          <div class="border-top border-secondary"></div>
-          <b-nav-item :to="{ name: 'cabinet.parties'}">
-            <b-icon-people /> <span class="ml-2">Parties</span>
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'cabinet.parties.claims'}">
-            <b-icon-hand-index /> <span class="ml-2">Parties Claims</span>
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'cabinet.parties.comments'}">
-            <b-icon-chat-text /> <span class="ml-2">Parties Comments</span>
-          </b-nav-item>
-          <b-nav-item :to="{ name: 'cabinet.parties.ratings'}">
-            <b-icon-star /> <span class="ml-2">Parties Ratings</span>
-          </b-nav-item>
-        </b-navbar-nav>
-      </b-nav>
-    </div>
-  </nav>
+  <sidebar-menu width="220px" :menu="menu">
+    <template v-slot:toggle-icon>
+      <font-awesome-icon icon="arrows-alt-h"/>
+    </template>
+    <template v-slot:dropdown-icon>
+      <font-awesome-icon icon="angle-right" />
+    </template>
+  </sidebar-menu>
 </template>
 <script>
-import {mapActions} from 'vuex';
-
+import {SidebarMenu} from 'vue-sidebar-menu'
 export default {
+
+  components: {
+    SidebarMenu
+  },
 
   data() {
     return {
-      profile: {},
-      isLoaded: false,
+      menu: [
+        {
+          href: '/',
+          title: 'Dashboard',
+          icon: 'fas fa-list'
+        },
+        {
+          href: '/users',
+          title: 'Users',
+          icon: 'fas fa-users'
+        },
+        {
+          href: '/messages',
+          title: 'Messages',
+          icon: 'fas fa-mail-bulk'
+        },
+        {
+          href: '/settings',
+          title: 'Settings',
+          icon: 'fas fa-wrench'
+        },
+        {
+          href: '/avis',
+          title: 'Avis',
+          icon: 'fas fa-user-tag',
+          child: [
+            {
+              href: 'avis-claims',
+              title: 'Claims',
+              icon: 'fas fa-hand-paper'
+            },
+            {
+              href: 'avis-comments',
+              title: 'Comments',
+              icon: 'fas fa-comments'
+            },
+            {
+              href: 'avis-ratings',
+              title: 'Ratings',
+              icon: 'fas fa-star'
+            }
+          ]
+        },
+        {
+          href: '/parties',
+          title: 'Parties',
+          icon: 'fas fa-glass-cheers',
+          child: [
+            {
+              href: 'parties-claims',
+              title: 'Claims',
+              icon: 'fas fa-hand-paper'
+            },
+            {
+              href: 'parties-comments',
+              title: 'Comments',
+              icon: 'fas fa-comments'
+            },
+            {
+              href: 'parties-ratings',
+              title: 'Ratings',
+              icon: 'fas fa-star'
+            }
+          ]
+        }
+      ]
     }
-  },
-
-  mounted() {
-    this.profile = this.$store.state.auth.profile;
-    this.isLoaded = true;
-  },
-
-  methods: {
-
-    emitLogout() {
-      this.logout().then(() => {
-        this.$router.push({name: 'auth.signin'})
-      })
-    },
-
-    ...mapActions({
-      logout: 'auth/LOGOUT'
-    })
   }
 }
 </script>
 <style lang="scss">
-.sidebar-component {
-  min-width: 220px;
-  max-width: 220px;
-  overflow: hidden;
-  background: #2d353c;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 57px;
+.v-sidebar-menu {
+  position: relative;
   height: calc(100vh - 57px);
-  padding-top: .5rem;
-  overflow-y: auto;
 
-  .navbar-nav {
-    margin-top: 15px;
-  }
-
-  .nav-link {
-    padding: 8px 20px;
-  }
-
-  .nav-link:not(.router-link-exact-active) {
-    &:hover {
-      background: #232a2f;
-      color: #a8acb1;
+  .vsm--link_level-1 {
+    .vsm--icon {
+      padding: 8px;
     }
   }
 
-  .router-link-exact-active,
-  .router-link-active {
-    //background: #00acac;
-    color: #18f90a;
+  .vsm--toggle-btn {
+    &:focus {
+      outline: 0;
+    }
   }
 
-  a {
-    color: #a8acb1;
-    font-size: 12px;
+  .vsm--link_level-2 {
+    padding: 0 10px;
+  }
+
+  .vsm--icon {
+    padding: 2px;
   }
 }
 </style>

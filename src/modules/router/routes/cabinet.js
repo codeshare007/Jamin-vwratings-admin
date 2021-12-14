@@ -70,5 +70,16 @@ export default [
     path: 'parties-claims',
     component: () => import('@/views/parties/Claims'),
     meta: {title: 'Parties Claims'}
+  },
+  {
+    name: 'cabinet.settings',
+    path: 'settings',
+    component: () => import('@/views/settings/List'),
+    meta: {title: 'Settings'}
+  },
+  {
+    name: 'cabinet.profile',
+    path: 'profile',
+    component: () => import('@/views/Profile')
   }
 ]

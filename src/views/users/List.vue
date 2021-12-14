@@ -75,7 +75,7 @@
       <template #head(actions)="data">
         <div class="mb-3">
           <b-button variant="success" @click="create" class="mr-2">Create</b-button>
-          <b-button variant="primary" @click="fetchEntities">
+          <b-button variant="primary" @click="fetchUsers">
             <b-icon-arrow-clockwise/>
           </b-button>
         </div>

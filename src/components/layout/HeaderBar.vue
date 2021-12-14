@@ -15,9 +15,12 @@
             <template #button-content>
               <span class="text-dark">{{ profile.username }}</span>
             </template>
-            <b-dropdown-item href="/profile">Profile</b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'cabinet.profile' }">Profile</b-dropdown-item>
             <b-dropdown-item @click="emitLogout()">Logout</b-dropdown-item>
           </b-nav-item-dropdown>
+          <div class="ml-3">
+            <b-button variant="primary" href="/" class="mr-2">Go to Website</b-button>
+          </div>
         </b-navbar-nav>
 
       </b-collapse>
@@ -63,6 +66,10 @@ export default {
     .nav-item a {
       color: black;
     }
+  }
+
+  .b-nav-dropdown .nav-link {
+    color: #7c7c7c !important;
   }
 }
 </style>

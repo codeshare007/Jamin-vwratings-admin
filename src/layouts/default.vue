@@ -1,17 +1,14 @@
 <template>
   <div class="default-theme">
-    <HeaderBar/>
-    <b-container fluid>
-      <b-row>
-        <SideNavBar/>
-        <main class="default-theme__main">
-          <div class="default-theme__container">
-            <b-container fluid class="p-0 h-100">
-              <router-view/>
-            </b-container>
-          </div>
-        </main>
-      </b-row>
+
+    <header-bar />
+    <b-container fluid class="p-0 d-flex">
+      <side-nav-bar />
+      <div class="default-theme__main">
+        <div class="default-theme__inner">
+          <router-view />
+        </div>
+      </div>
     </b-container>
   </div>
 </template>
@@ -28,13 +25,19 @@ export default {
 </script>
 <style lang="scss">
 .default-theme {
+  width: 100%;
+
   &__main {
-    margin-top: 20px;
     width: 100%;
-    @media screen and (min-width: 768px) {
-      width: calc(100% - 240px);
-      padding-left: 20px
-    }
+    height: 92vh;
+    overflow: hidden;
+  }
+
+  &__inner {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px 15px;
+    height: 100%;
   }
 
   &__container {

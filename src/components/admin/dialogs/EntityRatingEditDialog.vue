@@ -48,6 +48,7 @@ export default {
       loading: false,
       status: 'hidden',
       resolve: null,
+      method: null,
       reject: null,
       entityRating: initialState,
       initialState: initialState,

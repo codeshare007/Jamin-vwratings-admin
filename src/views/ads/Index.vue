@@ -1,18 +1,20 @@
 <template>
   <div class="adminAdsCampaigns">
-  
-   <b-row>
-      <b-col class="p-0 d-flex">
-        <b-form class="mt-1 mb-4">
-          <b-form-group label="Amount of hits to see promo page">
+
+    <b-form class="mt-1 mb-4" style="width: 600px">
+      <b-row class="d-flex align-items-end">
+        <b-col>
+          <b-form-group class="m-0" label="Amount of hits to see promo page">
             <b-form-input type="number" v-model="form.hits"/>
-			<b-button variant="success" @click="changeAmount">Change</b-button>			
           </b-form-group>
-        </b-form>
-      </b-col>
-    </b-row>  
-  
-    <div class="d-flex justify-content-between mb-3">		
+        </b-col>
+        <b-col>
+          <b-button variant="success" @click="changeAmount">Change</b-button>
+        </b-col>
+      </b-row>
+    </b-form>
+
+    <div class="d-flex justify-content-between mb-3">
       <b-col class="p-0  d-flex justify-items-start">
         <b-pagination
           class="m-0"
@@ -29,9 +31,9 @@
         </div>
       </b-col>
       <b-col class="p-0 d-flex justify-content-end align-items-center">
-        <b-form-input class="mr-2 search-link" v-model="search" placeholder="Search..."/>
+        <b-form-input class="mr-2 w-50 search-link" v-model="search" placeholder="Search..."/>
         <b-button variant="success" @click="create" class="mr-2">Create</b-button>
-        <b-button variant="primary" @click="fetchAdsCampaigns()">
+        <b-button variant="primary" @click="fetchAdsCampaigns">
           <b-icon-arrow-clockwise/>
         </b-button>
       </b-col>
@@ -53,10 +55,10 @@
 
       <template #cell(actions)="row">
         <b-button variant="primary" size="sm" @click="edit(row.item.id)">
-          <b-icon-pencil />
+          <b-icon-pencil/>
         </b-button>
         <b-button variant="danger" size="sm" @click="showDeleteModal(row.item.id)">
-          <b-icon-trash />
+          <b-icon-trash/>
         </b-button>
       </template>
 
@@ -83,9 +85,9 @@ export default {
       ids: [],
       campaigns: [],
       loading: false,
-		form: {
-		hits: null
-		},
+      form: {
+        hits: null
+      },
       selectAll: false,
       sortBy: 'created_at',
       search: '',
@@ -132,7 +134,7 @@ export default {
 
   mounted() {
     this.fetchAdsCampaigns();
-    this.fetchHits();	
+    this.fetchHits();
   },
 
   methods: {
@@ -180,7 +182,7 @@ export default {
         this.fetchAdsCampaigns();
       });
     },
-	
+
     fetchHits() {
       this.$api.adminDashboard.hits().then(response => {
         this.form.hits = response.data;
@@ -193,7 +195,7 @@ export default {
           this.fetchHits();
         }
       })
-    },	
+    },
 
     showDeleteModal(id) {
       this.deletableId = id;

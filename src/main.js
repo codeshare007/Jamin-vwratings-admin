@@ -11,6 +11,9 @@ Vue.use(Api, store, router)
 import '@/plugins/bootstrap-vue'
 import '@/plugins/vuelidate'
 import '@/plugins/v-viewer'
+import '@/plugins/vue-fontawesome'
+import '@/plugins/vue-sidebar-menu'
+
 import '@/assets/scss/main.scss'
 
 new Vue({

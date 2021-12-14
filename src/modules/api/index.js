@@ -3,6 +3,7 @@ import Cookie from 'js-cookie';
 
 import apiAuth from './methods/auth';
 import apiProfile from './methods/profile';
+import apiSettings from './methods/settings';
 
 import apiDashboard from './methods/dashboard';
 import apiUsers from './methods/users';
@@ -118,6 +119,8 @@ export default {
     const repositories = {
       auth: apiAuth(this.apiInstance),
       profile: apiProfile(this.apiInstance),
+      settings: apiSettings(this.apiInstance),
+
       adminDashboard: apiDashboard(this.apiInstance),
       messages: apiMessages(this.apiInstance),
       users: apiUsers(this.apiInstance),
