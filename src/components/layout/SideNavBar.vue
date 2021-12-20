@@ -1,5 +1,5 @@
 <template>
-  <sidebar-menu width="220px" :menu="menu">
+  <sidebar-menu width="220px" :collapsed="true" :menu="menu">
     <template v-slot:toggle-icon>
       <font-awesome-icon icon="arrows-alt-h"/>
     </template>

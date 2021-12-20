@@ -28,17 +28,19 @@
         </b-card>
       </b-col>
       <b-col cols="6">
-        <b-card header="Ads Campaigns">
-          <b-table :items="campaigns" :fields="campaignFields"/>
-        </b-card>
+        <CampaignsTable />
       </b-col>
     </b-row>
   </div>
 </template>
 <script>
 import {mapActions} from "vuex";
+import CampaignsTable from "@/components/settings/CampaignsTable";
 
 export default {
+  components: {
+    CampaignsTable
+  },
   data() {
     return {
       announcement_html: null,
@@ -51,19 +53,11 @@ export default {
         {key: 'description'},
         {key: 'actions'}
       ],
-      campaignFields: [
-        {key: 'name'},
-        {key: 'description'},
-        {key: 'timer'},
-        {key: 'created_at'},
-        {key: 'actions'}
-      ]
     }
   },
 
   mounted() {
     this.fetchSettings();
-    this.fetchAdsCampaigns();
     this.getAnnouncement();
   },
 
@@ -74,13 +68,9 @@ export default {
 
     fetchSettings() {
       this.$api.settings.fetch().then(response => {
-        this.settings = response.data.data;
-      })
-    },
-
-    fetchAdsCampaigns() {
-      this.$api.adsCampaigns.fetch().then(response => {
-        this.campaigns = response.data.data
+        this.settings = response.data.data.filter(item => {
+          if (item.key !== 'announcement_html') return item;
+        });
       })
     },
 
@@ -100,7 +90,7 @@ export default {
       this.editSetting(id).then(() => {
         this.fetchSettings();
       })
-    }
+    },
   }
 }
 </script>

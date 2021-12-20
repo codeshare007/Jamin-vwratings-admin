@@ -9,7 +9,7 @@
       <b-form-group label="User Id">
         <b-input type="text" v-model="entityComment.user_id"/>
       </b-form-group>
-      <b-form-group label="Avi Id" v-if="method === 'aviComments'">
+      <b-form-group label="Avi Id" v-if="method === 'avisComments'">
         <b-input type="text" v-model="entityComment.avis_id"/>
       </b-form-group>
       <b-form-group label="Party Id" v-if="method === 'partiesComments'">
