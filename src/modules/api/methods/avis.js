@@ -4,6 +4,7 @@ export default axios => ({
       params: {page: page, ...filter}
     });
   },
+
   get(id) {
     return axios.get(`avis/${id}`)
   },
@@ -16,6 +17,7 @@ export default axios => ({
   delete(id) {
     return axios.delete(`avis/${id}`)
   },
+
   bulkDelete(ids) {
     return axios.post('avis/bulk-delete', {ids: ids})
   }
