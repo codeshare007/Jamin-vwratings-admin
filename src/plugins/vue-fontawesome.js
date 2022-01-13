@@ -13,7 +13,8 @@ import {
   faGlassCheers,
   faComments,
   faHandPaper,
-  faWrench
+  faWrench,
+  faCommentDots
 } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -31,6 +32,7 @@ library.add(faUserTag)
 library.add(faComments)
 library.add(faHandPaper)
 library.add(faAngleRight)
+library.add(faCommentDots)
 
 dom.watch();
 

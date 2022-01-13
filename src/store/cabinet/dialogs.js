@@ -1,5 +1,7 @@
 import UserEditDialog from './dialogs/user';
+import UserNotificationEditDialog from './dialogs/usersNotification';
 import EntityEditDialog from './dialogs/entity';
+import NotificationEditDialog from './dialogs/notification'
 import EntityCommentEditDialog from './dialogs/entityComment';
 import EntityRatingEditDialog from './dialogs/entityRating';
 import AviClaimEditDialog from './dialogs/aviClaim';
@@ -11,9 +13,11 @@ export default {
   namespaced: true,
   modules: {
     user: UserEditDialog,
+    userNotification: UserNotificationEditDialog,
     campaign: AdsCampaignEditDialog,
     setting: SettingEditDialog,
     entity: EntityEditDialog,
+    notification: NotificationEditDialog,
     entityComment: EntityCommentEditDialog,
     entityRating: EntityRatingEditDialog,
     aviClaim: AviClaimEditDialog,

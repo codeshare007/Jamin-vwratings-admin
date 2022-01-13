@@ -7,21 +7,23 @@ import apiSettings from './methods/settings';
 
 import apiDashboard from './methods/dashboard';
 import apiUsers from './methods/users';
+import apiUsersNotifications from './methods/usersNotifications';
 import apiAdsCampaigns from './methods/adsCampaigns';
 import apiMessages from './methods/messages';
+import apiNotifications from './methods/notifications';
 
 // Avis
 import apiAvis from './methods/avis';
 import apiAvisClaims from './methods/avisClaims';
 import apiAvisRatings from './methods/avisRatings';
 import apiAvisComments from './methods/avisComments';
+import apiAvisInterviews from './methods/avisInterviews'
 
 // Parties
 import apiParties from './methods/parties';
 import apiPartiesClaims from './methods/partiesClaims';
 import apiPartiesComments from './methods/partiesComments';
 import apiPartiesRatings from './methods/partiesRatings';
-
 
 export default {
   removeJWT() {
@@ -123,7 +125,9 @@ export default {
 
       adminDashboard: apiDashboard(this.apiInstance),
       messages: apiMessages(this.apiInstance),
+      notifications: apiNotifications(this.apiInstance),
       users: apiUsers(this.apiInstance),
+      usersNotifications: apiUsersNotifications(this.apiInstance),
       adsCampaigns: apiAdsCampaigns(this.apiInstance),
 
       // avis
@@ -131,6 +135,7 @@ export default {
       avisClaims: apiAvisClaims(this.apiInstance),
       avisRatings: apiAvisRatings(this.apiInstance),
       avisComments: apiAvisComments(this.apiInstance),
+      avisInterviews: apiAvisInterviews(this.apiInstance),
 
       // parties
       parties: apiParties(this.apiInstance),

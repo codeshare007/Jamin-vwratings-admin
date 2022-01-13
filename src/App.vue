@@ -2,6 +2,8 @@
   <div class="app">
     <div v-if="isAdmin">
       <UserEditDialog />
+      <UserNotificationDialog />
+      <NotificationDialog />
       <EntityEditDialog />
       <EntityCommentEditDialog />
       <EntityRatingDialog />
@@ -25,6 +27,8 @@ import AdsCampaignEditDialog from "./components/admin/dialogs/AdsCampaignEditDia
 import AviClaimEditDialog from './components/admin/dialogs/AviClaimEditDialog'
 import PartyClaimEditDialog from './components/admin/dialogs/PartyClaimEditDialog'
 import EntityRatingDialog from "./components/admin/dialogs/EntityRatingEditDialog";
+import UserNotificationDialog from "./components/admin/dialogs/UserNotificationDialog";
+import NotificationDialog from './components/admin/dialogs/NotificationDialog';
 
 export default {
   name: 'App',
@@ -37,7 +41,9 @@ export default {
     AdsCampaignEditDialog,
     AviClaimEditDialog,
     SettingEditDialog,
-    PartyClaimEditDialog
+    PartyClaimEditDialog,
+    UserNotificationDialog,
+    NotificationDialog
   },
 
   data() {

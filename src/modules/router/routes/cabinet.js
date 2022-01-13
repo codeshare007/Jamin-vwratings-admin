@@ -18,10 +18,28 @@ export default [
     meta: {title: 'Avis'}
   },
   {
+    name: 'cabinet.avis.interviews',
+    path: 'avis-interviews',
+    component: () => import('@/views/avis/Interviews'),
+    meta: {title: 'Avis Interviews'}
+  },
+  {
     name: 'cabinet.messages',
     path: 'messages',
     component: () => import('@/views/messages/List'),
     meta: {title: 'Messages'}
+  },
+  {
+    name: 'cabinet.notifications',
+    path: 'notifications',
+    component: () => import('@/views/notifications/List'),
+    meta: {title: 'Notifications'}
+  },
+  {
+    name: 'cabinet.notifications.users',
+    path: 'users-notifications',
+    component: () => import('@/views/notifications/Users'),
+    meta: {title: 'Users Notifications'}
   },
   {
     name: 'cabinet.ads.campaigns',
@@ -80,6 +98,7 @@ export default [
   {
     name: 'cabinet.profile',
     path: 'profile',
-    component: () => import('@/views/Profile')
+    component: () => import('@/views/Profile'),
+    meta: {title: 'Profile'}
   }
 ]
