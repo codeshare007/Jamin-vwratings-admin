@@ -75,7 +75,7 @@
       <template #head(actions)="data">
         <div class="mb-3">
           <b-button variant="success" @click="create" class="mr-2">Create</b-button>
-          <b-button variant="primary" @click="fetchUsers">
+          <b-button variant="primary" @click="reloadPage">
             <b-icon-arrow-clockwise/>
           </b-button>
         </div>
@@ -219,7 +219,10 @@ export default {
     ...mapActions({
       createUser: 'dialogs/user/create',
       editUser: 'dialogs/user/edit',
-      fetchUsers: 'users/FETCH'
+      fetchUsers: 'users/FETCH',
+		reloadPage() {
+		window.location.reload();
+		}	  
     }),
 
     fetchUsers() {

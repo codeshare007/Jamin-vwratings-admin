@@ -20,7 +20,7 @@
         </div>
       </b-col>
       <b-col cols="4" class="p-0 d-flex justify-content-end align-items-center">
-        <b-button variant="primary" @click="fetchComments">
+        <b-button variant="primary" @click="reloadPage">
           <b-icon-arrow-clockwise/>
         </b-button>
       </b-col>
@@ -242,7 +242,10 @@ export default {
 
   methods: {
     ...mapActions({
-      editEntityComment: 'dialogs/entityComment/edit'
+      editEntityComment: 'dialogs/entityComment/edit',
+		reloadPage() {
+		window.location.reload();
+		}	  
     }),
 
     edit(id) {

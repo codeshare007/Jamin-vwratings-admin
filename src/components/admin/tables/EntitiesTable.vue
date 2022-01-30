@@ -62,7 +62,7 @@
       <template #head(actions)="data">
         <div class="mb-3">
           <b-button variant="success" @click="create" class="mr-2">Create</b-button>
-          <b-button variant="primary" @click="fetchEntities">
+          <b-button variant="primary" @click="reloadPage">
             <b-icon-arrow-clockwise/>
           </b-button>
         </div>
@@ -197,6 +197,9 @@ export default {
     ...mapActions({
       createEntity: 'dialogs/entity/create',
       editEntity: 'dialogs/entity/edit',
+		reloadPage() {
+		window.location.reload();
+		}
     }),
 
     create() {

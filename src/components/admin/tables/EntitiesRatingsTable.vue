@@ -55,7 +55,7 @@
 
       <template #head(actions)="data">
         <div class="mb-3 d-flex justify-content-end">
-          <b-button variant="primary" size="sm" @click="fetchRatings">
+          <b-button variant="primary" size="sm" @click="reloadPage">
             <b-icon-arrow-clockwise/>
           </b-button>
         </div>
@@ -182,6 +182,10 @@ export default {
 
   methods: {
     ...mapActions({editEntityRating: 'dialogs/entityRating/edit'}),
+	
+		reloadPage() {
+		window.location.reload();
+		},	
 
     edit(id) {
       this.editEntityRating({id: id, method: this.method}).then(() => this.fetchRatings())
