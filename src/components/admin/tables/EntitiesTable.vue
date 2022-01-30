@@ -152,7 +152,7 @@ export default {
       entitiesFields: [
         {key: 'select', label: '', sortable: false},
         {key: 'id', label: '#', sortable: true, thStyle: 'width: 100px'},
-        {key: 'username', label: 'user', sortable: true},
+        {key: 'username', label: 'Member adding', sortable: true},
         {key: 'name', sortable: true},
         {
           key: 'created_at', thStyle: 'white-space: nowrap', sortable: true, formatter: createdAt => {

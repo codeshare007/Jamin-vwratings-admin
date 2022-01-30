@@ -97,10 +97,6 @@
         {{ data.index + 1 }}
       </template>
 
-      <template #cell(role)="data">
-        {{ data.item.role | role }}
-      </template>
-
       <template #cell(actions)="data">
         <div class="d-flex">
           <b-button class="mr-2" variant="primary" size="sm" @click="edit(data.item.id)">
@@ -164,7 +160,6 @@ export default {
           }, sortable: true
         },
         {key: 'ip_address', label: 'IP address', sortable: true, thStyle: 'width: 150px'},
-        {key: 'role', sortable: true},
         {
           key: 'created_at', thStyle: 'white-space: nowrap', sortable: true, formatter: createdAt => {
             return moment(createdAt).format('YYYY-MM-DD HH:mm')
@@ -176,10 +171,6 @@ export default {
   },
 
   filters: {
-    role(data) {
-      const roles = {1: 'Admin', 2: 'User', 3: 'Ban'}
-      return roles[data];
-    }
   },
 
   watch: {

@@ -113,9 +113,9 @@ export default {
       commentsFields: [
         {key: 'select', label: '', sortable: false},
         {key: 'id', label: '#', sortable: true},
-        {key: 'user.username', label: 'user', sortable: true},
-        {key: 'avi.name', label: 'avi', sortable: true},
-        {key: 'claimed_until', label: 'claimed_until', sortable: true},
+        {key: 'user.username', label: 'Member', sortable: true},
+        {key: 'avi.name', label: 'Claimed Player', sortable: true},
+        {key: 'claimed_until', label: 'Expires', sortable: true},
         {key: 'actions', thStyle: 'min-width: 120px', sortable: false}
       ]
     }

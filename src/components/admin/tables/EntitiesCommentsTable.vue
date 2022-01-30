@@ -190,9 +190,9 @@ export default {
       commentsFields: [
         {key: 'select', label: '', sortable: false},
         {key: 'id', label: '#', sortable: true, thStyle: 'width: 100px'},
-        {key: 'username', label: 'user', sortable: true, thStyle: 'width: 100px'},
-        {key: 'name', label: 'avi', sortable: true},
-        {key: 'content', label: 'content'},
+        {key: 'username', label: 'Member', sortable: true, thStyle: 'width: 100px'},
+        {key: 'name', label: 'Name', sortable: true},
+        {key: 'content', label: 'Comment'},
         {key: 'opinion', sortable: true},
         {key: 'actions', thStyle: 'min-width: 120px', sortable: false}
       ]

@@ -109,9 +109,9 @@ export default {
       commentsFields: [
         {key: 'select', label: '', sortable: false},
         {key: 'id', label: '#', sortable: true},
-        {key: 'user.username', label: 'user', sortable: true},
-        {key: 'party.name', label: 'party', sortable: true},
-        {key: 'claimed_until', label: 'claimed_until', sortable: true},
+        {key: 'user.username', label: 'Member', sortable: true},
+        {key: 'party.name', label: 'Claimed Party', sortable: true},
+        {key: 'claimed_until', label: 'Expires', sortable: true},
         {key: 'actions', thStyle: 'min-width: 120px', sortable: false}
       ]
     }

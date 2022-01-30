@@ -50,7 +50,7 @@
         <b-form-group class="mb-3">
           <b-form-input v-model="search_name" placeholder="name" />
         </b-form-group>
-        <span>avi/party name</span>
+        <span>Rated Name</span>
       </template>
 
       <template #head(actions)="data">
@@ -109,7 +109,6 @@
   </div>
 </template>
 <script>
-import moment from "moment";
 import { mapActions } from "vuex";
 
 export default {
@@ -137,19 +136,9 @@ export default {
       ratingFields: [
         {key: 'select', label: '', sortable: false},
         {key: 'index', label: '#', sortable: true},
-        {key: 'username', label: 'user', sortable: true},
+        {key: 'username', label: 'Member', sortable: true},
         {key: 'name', sortable: true},
         {key: 'rating'},
-        {
-          key: 'created_at', formatter: createdAt => {
-            return moment(createdAt).format('YYYY-MM-DD HH:mm:ss')
-          }, sortable: true
-        },
-        {
-          key: 'updated_at', formatter: createdAt => {
-            return moment(createdAt).format('YYYY-MM-DD HH:mm:ss')
-          }, sortable: true
-        },
         {key: 'actions', thStyle: 'width: 105px'}
       ]
     }
