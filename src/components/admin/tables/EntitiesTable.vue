@@ -209,7 +209,7 @@ export default {
     },
 
     edit(id) {
-      this.editEntity(this.entities, id).then(() => {
+      this.editEntity({entities: this.entities, id: id}).then(() => {
         this.fetchEntities()
       })
     },

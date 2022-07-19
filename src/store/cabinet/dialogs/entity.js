@@ -26,7 +26,7 @@ export default {
         });
       });
     },
-    edit({commit}, entities, id) {
+    edit({commit}, {entities, id}) {
       return new Promise((resolve, reject) => {
         commit('set', {
           status: 'edit',
