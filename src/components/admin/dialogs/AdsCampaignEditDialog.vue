@@ -60,6 +60,7 @@ export default {
     return {
       loading: false,
       status: 'hidden',
+      type: 1,
       resolve: null,
       reject: null,
       campaign: initialState,
@@ -89,6 +90,7 @@ export default {
         this.clearData();
         this.campaign.id = value.id;
         this.status = value.status;
+        this.type = value.type;
         this.resolve = value.resolve;
         this.reject = value.reject;
 
@@ -125,6 +127,7 @@ export default {
     create() {
       this.error = null;
       this.loading = true;
+      this.campaign.type = this.type;
       this.$api.adsCampaigns.create(this.campaign).then(response => {
         this.resolve(response);
         this.handleClose();
