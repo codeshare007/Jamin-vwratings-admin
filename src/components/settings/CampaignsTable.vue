@@ -37,6 +37,44 @@
         </b-button>
       </template>
     </b-table>
+	
+    <h4>Nominations Promo</h4>
+    <div>
+      <b-button variant="success" size="sm" class="mb-3" @click="campaignCreate(3)">Create</b-button>
+    </div>
+
+    <b-table :items="nominationsCampaigns" :fields="fields">
+      <template #cell(index)="row">
+        {{ row.index + 1 }}
+      </template>
+      <template #cell(actions)="row">
+        <b-button variant="primary" size="sm" class="mr-1" @click="campaignEdit(row.item.id)">
+          <b-icon-pencil/>
+        </b-button>
+        <b-button variant="danger" size="sm" @click="showDeleteModal(row.item.id)">
+          <b-icon-trash/>
+        </b-button>
+      </template>
+    </b-table>	
+	
+    <h4>Votings Promo</h4>
+    <div>
+      <b-button variant="success" size="sm" class="mb-3" @click="campaignCreate(4)">Create</b-button>
+    </div>
+
+    <b-table :items="votingsCampaigns" :fields="fields">
+      <template #cell(index)="row">
+        {{ row.index + 1 }}
+      </template>
+      <template #cell(actions)="row">
+        <b-button variant="primary" size="sm" class="mr-1" @click="campaignEdit(row.item.id)">
+          <b-icon-pencil/>
+        </b-button>
+        <b-button variant="danger" size="sm" @click="showDeleteModal(row.item.id)">
+          <b-icon-trash/>
+        </b-button>
+      </template>
+    </b-table>	
 
     <b-modal @ok="destroyCampaign" ref="deleteModal">
       Are you sure that you want to delete campaign ?
@@ -51,6 +89,8 @@ export default {
     return {
       viewCampaigns: [],
       claimingCampaigns: [],
+      nominationsCampaigns: [],
+      votingsCampaigns: [],	  
       fields: [
         {key: 'index'},
         {key: 'name'},
@@ -64,6 +104,8 @@ export default {
   mounted() {
     this.fetchCampaigns(1);
     this.fetchCampaigns(2);
+    this.fetchCampaigns(3);
+    this.fetchCampaigns(4);	
   },
 
   methods: {
@@ -84,7 +126,11 @@ export default {
           this.viewCampaigns = response.data.data 
         } else if (type == 2) {
           this.claimingCampaigns = response.data.data
-        }        
+        } else if (type == 3) {
+          this.nominationsCampaigns = response.data.data 
+        } else if (type == 4) {
+          this.votingsCampaigns = response.data.data
+        }        		
       })
     },
 
@@ -97,7 +143,9 @@ export default {
     campaignEdit(id) {
       this.editCampaign(id).then(() => {
         this.fetchCampaigns(1);
-        this.fetchCampaigns(2);							   
+        this.fetchCampaigns(2);
+        this.fetchCampaigns(3);
+        this.fetchCampaigns(4);		
       })
     },
 
@@ -110,6 +158,8 @@ export default {
       this.$api.adsCampaigns.delete(this.deletableId).then(() => {
         this.fetchCampaigns(1);
         this.fetchCampaigns(2);
+        this.fetchCampaigns(3);
+        this.fetchCampaigns(4);		
         this.deletableId = null;
       })
     },
