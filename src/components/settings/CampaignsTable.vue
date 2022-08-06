@@ -74,6 +74,25 @@
           <b-icon-trash/>
         </b-button>
       </template>
+    </b-table>
+
+    <h4>Process Promo</h4>
+    <div>
+      <b-button variant="success" size="sm" class="mb-3" @click="campaignCreate(7)">Create</b-button>
+    </div>
+
+    <b-table :items="processCampaigns" :fields="fields">
+      <template #cell(index)="row">
+        {{ row.index + 1 }}
+      </template>
+      <template #cell(actions)="row">
+        <b-button variant="primary" size="sm" class="mr-1" @click="campaignEdit(row.item.id)">
+          <b-icon-pencil/>
+        </b-button>
+        <b-button variant="danger" size="sm" @click="showDeleteModal(row.item.id)">
+          <b-icon-trash/>
+        </b-button>
+      </template>
     </b-table>	
 
     <b-modal @ok="destroyCampaign" ref="deleteModal">
@@ -90,7 +109,8 @@ export default {
       viewCampaigns: [],
       claimingCampaigns: [],
       nominationsCampaigns: [],
-      votingsCampaigns: [],	  
+      votingsCampaigns: [],
+      processCampaigns: [],	  
       fields: [
         {key: 'index'},
         {key: 'name'},
@@ -105,7 +125,8 @@ export default {
     this.fetchCampaigns(1);
     this.fetchCampaigns(2);
     this.fetchCampaigns(3);
-    this.fetchCampaigns(4);	
+    this.fetchCampaigns(4);
+    this.fetchCampaigns(7);	
   },
 
   methods: {
@@ -130,7 +151,9 @@ export default {
           this.nominationsCampaigns = response.data.data 
         } else if (type == 4) {
           this.votingsCampaigns = response.data.data
-        }        		
+        } else if (type == 7) {
+          this.processCampaigns = response.data.data
+        }       		
       })
     },
 
@@ -145,7 +168,8 @@ export default {
         this.fetchCampaigns(1);
         this.fetchCampaigns(2);
         this.fetchCampaigns(3);
-        this.fetchCampaigns(4);		
+        this.fetchCampaigns(4);
+        this.fetchCampaigns(7);		
       })
     },
 
@@ -159,7 +183,8 @@ export default {
         this.fetchCampaigns(1);
         this.fetchCampaigns(2);
         this.fetchCampaigns(3);
-        this.fetchCampaigns(4);		
+        this.fetchCampaigns(4);
+        this.fetchCampaigns(7);		
         this.deletableId = null;
       })
     },
