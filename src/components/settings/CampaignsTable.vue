@@ -75,6 +75,44 @@
         </b-button>
       </template>
     </b-table>
+	
+    <h4>Peeps Nomination Promo</h4>
+    <div>
+      <b-button variant="success" size="sm" class="mb-3" @click="campaignCreate(5)">Create</b-button>
+    </div>
+
+    <b-table :items="pnominationsCampaigns" :fields="fields">
+      <template #cell(index)="row">
+        {{ row.index + 1 }}
+      </template>
+      <template #cell(actions)="row">
+        <b-button variant="primary" size="sm" class="mr-1" @click="campaignEdit(row.item.id)">
+          <b-icon-pencil/>
+        </b-button>
+        <b-button variant="danger" size="sm" @click="showDeleteModal(row.item.id)">
+          <b-icon-trash/>
+        </b-button>
+      </template>
+    </b-table>	
+	
+    <h4>Peeps Voting Promo</h4>
+    <div>
+      <b-button variant="success" size="sm" class="mb-3" @click="campaignCreate(6)">Create</b-button>
+    </div>
+
+    <b-table :items="pvotingsCampaigns" :fields="fields">
+      <template #cell(index)="row">
+        {{ row.index + 1 }}
+      </template>
+      <template #cell(actions)="row">
+        <b-button variant="primary" size="sm" class="mr-1" @click="campaignEdit(row.item.id)">
+          <b-icon-pencil/>
+        </b-button>
+        <b-button variant="danger" size="sm" @click="showDeleteModal(row.item.id)">
+          <b-icon-trash/>
+        </b-button>
+      </template>
+    </b-table>	
 
     <h4>Process Promo</h4>
     <div>
@@ -110,6 +148,8 @@ export default {
       claimingCampaigns: [],
       nominationsCampaigns: [],
       votingsCampaigns: [],
+      pnominationsCampaigns: [],
+      pvotingsCampaigns: [],	  
       processCampaigns: [],	  
       fields: [
         {key: 'index'},
@@ -126,6 +166,8 @@ export default {
     this.fetchCampaigns(2);
     this.fetchCampaigns(3);
     this.fetchCampaigns(4);
+    this.fetchCampaigns(5);
+    this.fetchCampaigns(6);	
     this.fetchCampaigns(7);	
   },
 
@@ -151,6 +193,10 @@ export default {
           this.nominationsCampaigns = response.data.data 
         } else if (type == 4) {
           this.votingsCampaigns = response.data.data
+        } else if (type == 5) {
+          this.pnominationsCampaigns = response.data.data 
+        } else if (type == 6) {
+          this.pvotingsCampaigns = response.data.data		
         } else if (type == 7) {
           this.processCampaigns = response.data.data
         }       		
@@ -169,6 +215,8 @@ export default {
         this.fetchCampaigns(2);
         this.fetchCampaigns(3);
         this.fetchCampaigns(4);
+		this.fetchCampaigns(5);
+		this.fetchCampaigns(6);		
         this.fetchCampaigns(7);		
       })
     },
@@ -184,6 +232,8 @@ export default {
         this.fetchCampaigns(2);
         this.fetchCampaigns(3);
         this.fetchCampaigns(4);
+		this.fetchCampaigns(5);
+		this.fetchCampaigns(6);		
         this.fetchCampaigns(7);		
         this.deletableId = null;
       })
