@@ -7,16 +7,16 @@
 
     <b-form>
       <b-form-group label="Username">
-        <b-input type="text" v-model="user.username"/>
+        <b-input v-model="user.username"/>
       </b-form-group>
       <b-form-group label="Email">
-        <b-input type="text" v-model="user.email"/>
+        <b-input v-model="user.email"/>
       </b-form-group>
       <b-form-group label="Role">
         <b-form-select :options="roles" v-model="user.role" />
       </b-form-group>
       <b-form-group label="Password">
-        <b-input type="password" v-model="user.password"/>
+        <b-input v-model="user.password"/>
       </b-form-group>
     </b-form>
 

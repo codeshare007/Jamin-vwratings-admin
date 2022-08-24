@@ -160,6 +160,7 @@ export default {
           }, sortable: true
         },
         {key: 'ip_address', label: 'IP address', sortable: true, thStyle: 'width: 150px'},
+        {key: 'role', label: 'Status', sortable: true},		
         {
           key: 'created_at', thStyle: 'white-space: nowrap', sortable: true, formatter: createdAt => {
             return moment(createdAt).format('YYYY-MM-DD HH:mm')
